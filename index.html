@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ateliê Encantos d'Oyá</title>
+  <meta name="description" content="Ateliê Encantos d'Oyá — peças artesanais." />
+  
+  <style>
+    /* =========================================
+       CONFIGURAÇÕES GERAIS (CSS)
+       Definição de variáveis de cores e layout
+    ========================================= */
+    :root {
+      --cor-vermelho-escuro: #4a090c;
+      --cor-vermelho-vivo: #7c0f14;
+      --cor-texto: #222;
+      --cor-branco: #ffffff;
+      --cor-zap: #10b774;
+      
+      /* Cor de fundo suave para os cards */
+      --cor-fundo-card: #fff2f4;
+      
+      /* Medidas padrão */
+      --largura-maxima: 1150px;
+      --raio-borda: 20px; 
+      --sombra-suave: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    /* Reset para remover margens padrão do navegador */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    
+    body { 
+      font-family: 'Inter', sans-serif; 
+      color: var(--cor-texto);
+      /* Fundo com gradiente suave */
+      background: linear-gradient(180deg, #ffe0e0 0%, #ffc4c4 100%);
+      background-attachment: fixed; 
+      min-height: 100vh;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; }
+    button { cursor: pointer; border: none; background: transparent; }
+
+    .container { max-width: var(--largura-maxima); margin: 0 auto; padding: 0 16px; }
+
+    /* =========================================
+       CABEÇALHO (HEADER)
+    ========================================= */
+    header {
+      background: linear-gradient(135deg, var(--cor-vermelho-escuro), var(--cor-vermelho-vivo));
+      padding: 8px 0;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      /* Mantém o menu fixo no topo ao rolar a página */
+      position: sticky; top: 0; z-index: 100;
+    }
+
+    .menu-topo {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+
+    .marca-completa { display: flex; align-items: center; gap: 16px; }
+
+    .area-logo {
+      width: 70px; height: 70px;
+      background-color: #fff;
+      border-radius: 50%; /* Borda arredondada */
+      border: 3px solid rgba(255,255,255,0.5);
+      overflow: hidden;
+      display: flex; justify-content: center; align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .area-logo img { width: 100%; height: 100%; object-fit: cover; }
+
+    .info-texto h1 { font-size: 1.3rem; font-weight: 700; color: #fff; line-height: 1.2; margin: 0; }
+    .info-texto small { display: block; font-size: 0.85rem; opacity: 0.9; font-weight: 300; }
+
+    /* Imagem decorativa central (oculta em telas menores) */
+    .decoracao-meio {
+      flex-grow: 1; 
+      display: flex; justify-content: center; align-items: center;
+      padding: 0 15px; height: 80px; overflow: visible; 
+    }
+    .decoracao-meio img {
+      height: 160px; width: auto; object-fit: contain;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); 
+      transition: transform 0.3s ease; margin-top: 10px; 
+    }
+    .decoracao-meio img:hover { transform: scale(1.1); }
+
+    .controles { display: flex; align-items: center; gap: 12px; }
+    .campo-busca {
+      background: rgba(255,255,255,0.95); padding: 6px 14px; border-radius: 50px;
+      display: flex; align-items: center;
+    }
+    .campo-busca input { border: 0; outline: 0; background: transparent; min-width: 160px; }
+    
+    .btn-contato {
+      background: rgba(255,255,255,0.2); color: #fff; padding: 8px 20px;
+      border-radius: 50px; font-weight: 600; font-size: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.3); transition: 0.3s;
+      display: flex; align-items: center; gap: 8px; 
+    }
+    .btn-contato:hover { background: #fff; color: var(--cor-vermelho-vivo); }
+    
+    .icon-zap-mini {
+      width: 20px; height: 20px; border-radius: 50%; object-fit: cover;
+    }
+
+    /* =========================================
+       ÁREA DE DESTAQUE E CARROSSEL
+    ========================================= */
+    .secao-destaque {
+      display: grid; 
+      grid-template-columns: 1fr 500px; 
+      gap: 32px;
+      margin-top: 40px; 
+      align-items: center; 
+    }
+
+    .card-principal {
+      background: #fff; padding: 40px; border-radius: 20px;
+      border-left: 8px solid var(--cor-vermelho-vivo);
+      box-shadow: var(--sombra-suave);
+      display: flex; flex-direction: column; justify-content: center;
+      text-align: center; 
+    }
+    .card-principal h2 { font-size: 2.2rem; color: var(--cor-vermelho-escuro); margin-bottom: 12px; }
+    .card-principal p { color: #555; font-size: 1.1rem; margin-bottom: 30px; }
+
+    /* Filtros (Botões de texto) */
+    .filtros-categoria { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; }
+    .btn-cat {
+      padding: 8px 16px; background: #fff; border-radius: 50px;
+      color: var(--cor-vermelho-escuro); font-weight: 700; transition: 0.2s;
+      border: 1px solid #ffcccc; font-size: 0.9rem;
+    }
+    .btn-cat:hover, .btn-cat.ativo { background: var(--cor-vermelho-escuro); color: #fff; border-color: var(--cor-vermelho-escuro); }
+
+    /* Filtros (Ícones redondos) */
+    .filtros-orixa-wrapper {
+      display: flex; 
+      gap: 15px; 
+      margin-top: 10px;
+      flex-wrap: wrap; 
+      justify-content: center; 
+      padding-bottom: 10px;
+    }
+
+    .icon-orixa { 
+      display: flex; flex-direction: column; align-items: center; 
+      min-width: 60px; cursor: pointer; transition: 0.2s; opacity: 0.8;
+      margin-bottom: 10px; 
+    }
+    .icon-orixa:hover { transform: scale(1.1); opacity: 1; }
+    .icon-orixa img {
+      width: 55px; height: 55px; border-radius: 50%; object-fit: cover;
+      border: 2px solid #eee; margin-bottom: 5px;
+    }
+    .icon-orixa span { font-size: 0.75rem; font-weight: 700; color: #555; white-space: nowrap; }
+
+    /* Container do Slide */
+    .carrossel-wrapper {
+      position: relative;
+      width: 100%; height: 500px; 
+      border-radius: 20px; overflow: hidden;
+      box-shadow: var(--sombra-suave);
+      background: linear-gradient(135deg, var(--cor-vermelho-escuro), var(--cor-vermelho-vivo));
+    }
+
+    .slide-foto {
+      width: 100%; height: 100%; 
+      object-fit: contain; 
+      position: absolute; top: 0; left: 0; 
+      opacity: 0; transition: opacity 0.6s ease-in-out;
+      padding: 40px; 
+    }
+    .slide-foto.ativo { opacity: 1; z-index: 1; }
+
+    /* Botões de navegação (Setas) */
+    .seta-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.2); color: #fff;
+      width: 40px; height: 40px; border-radius: 50%;
+      font-size: 20px; font-weight: bold;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 10; transition: 0.3s;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+    .seta-nav:hover { background: #fff; color: var(--cor-vermelho-vivo); transform: translateY(-50%) scale(1.1); }
+    .seta-anterior { left: 15px; }
+    .seta-proxima { right: 15px; }
+
+    /* Indicadores de página (Bolinhas) */
+    .indicadores-nav {
+      position: absolute; bottom: 15px; width: 100%;
+      display: flex; justify-content: center; gap: 8px;
+      z-index: 10;
+    }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.4); cursor: pointer; transition: 0.3s;
+      display: none; 
+    }
+    .dot.visivel { display: block; } 
+    .dot.ativo { background: #fff; transform: scale(1.4); }
+
+    /* Botão CTA do WhatsApp no Slide (Versão Menor) 
+       Ajustado tamanho e posição para não cobrir as imagens */
+    .cta-carrossel {
+      position: absolute; 
+      bottom: 40px; 
+      left: 50%; 
+      transform: translateX(-50%);
+      
+      background: rgba(255,255,255,0.9); /* Leve transparência */
+      color: var(--cor-vermelho-vivo);
+      
+      /* Tamanhos reduzidos */
+      padding: 6px 14px; 
+      border-radius: 50px;
+      font-weight: bold; 
+      font-size: 0.8rem; /* Fonte menor */
+      
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 20; 
+      display: flex; 
+      align-items: center; 
+      gap: 6px;
+      transition: 0.3s;
+      white-space: nowrap;
+    }
+    .cta-carrossel:hover { transform: translateX(-50%) scale(1.05); background: #fff; opacity: 1; }
+    
+    .cta-carrossel .icon-zap-mini {
+        width: 16px; height: 16px;
+    }
+
+    /* =========================================
+       LISTAGEM DE PRODUTOS
+    ========================================= */
+    .titulo-secao {
+      font-size: 1.8rem; color: var(--cor-vermelho-escuro); font-weight: 800;
+      margin: 60px 0 30px 0; padding-bottom: 15px; border-bottom: 2px solid rgba(0,0,0,0.1);
+    }
+
+    .grade-produtos {
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 30px; 
+      scroll-margin-top: 140px;
+    }
+
+    /* Estilo do Card do Produto */
+    .produto {
+      background: var(--cor-fundo-card); 
+      border-radius: 20px; 
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    .produto:hover { 
+      transform: translateY(-5px); /* Efeito visual ao passar o mouse */
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+    }
+
+    .produto img { 
+      width: 100%; 
+      height: 280px; 
+      object-fit: contain; 
+      background-color: transparent; 
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding: 25px; 
+    }
+
+    .produto-info { 
+      padding: 24px; 
+      display: flex; flex-direction: column;
+      flex-grow: 1;
+      background: transparent; 
+    }
+    
+    .produto-info h3 { font-size: 1.15rem; margin-bottom: 8px; color: #111; font-weight: 700; }
+    .preco { font-size: 1.3rem; color: var(--cor-vermelho-vivo); font-weight: 800; margin-bottom: 12px; }
+    .desc { font-size: 0.95rem; color: #666; margin-bottom: 20px; line-height: 1.5; flex-grow: 1; }
+
+    .btn-comprar {
+      background: linear-gradient(90deg, var(--cor-zap), #099c63); 
+      color: #fff; padding: 14px; text-align: center; border-radius: 12px; font-weight: 700;
+      text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px; transition: 0.3s;
+      display: block; width: 100%;
+    }
+    .btn-comprar:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(16, 183, 116, 0.3); }
+
+    /* =========================================
+       RODAPÉ E SOBRE
+    ========================================= */
+    .sobre {
+      background: var(--cor-fundo-card); 
+      padding: 40px; border-radius: 20px; margin-top: 60px;
+      box-shadow: var(--sombra-suave); display: flex; align-items: center; gap: 30px;
+    }
+    .sobre img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 5px solid #fff; }
+
+    footer {
+      text-align: center; padding: 40px 0; margin-top: 60px;
+      border-top: 1px solid rgba(0,0,0,0.05); background: transparent; color: #666;
+    }
+
+    /* Ajustes para telas menores (Responsivo) */
+    @media(max-width: 900px) {
+      .secao-destaque { grid-template-columns: 1fr; margin-top: 20px; }
+      .carrossel-wrapper { height: 350px; order: -1; }
+      .sobre { flex-direction: column; text-align: center; }
+      .menu-topo { justify-content: center; }
+      .marca-completa { flex-direction: column; gap: 10px; text-align: center; }
+      .campo-busca input { min-width: 140px; }
+      .decoracao-meio { display: none; }
+      .filtros-orixa-wrapper { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container menu-topo">
+      
+      <div class="marca-completa">
+        <div class="area-logo">
+          <img src="IMG/Logo_Tania.png" alt="Logo">
+        </div>
+        <div class="info-texto">
+          <h1>Ateliê Encantos d'Oyá</h1>
+          <small>Axé e Tradição</small>
+        </div>
+      </div>
+
+      <div class="decoracao-meio">
+        <img src="IMG/Orixas.png" alt="Orixás Decoração">
+      </div>
+
+      <div class="controles">
+        <div class="campo-busca">
+          <input id="inputBusca" type="text" placeholder="Buscar..." oninput="filtrarProdutos()" />
+          <button onclick="limparBusca()">✕</button>
+        </div>
+        <a href="#" class="btn-contato" onclick="zap(event)">
+          <img src="IMG/whatsapp.jpg" alt="Zap" class="icon-zap-mini">
+          Compre pelo WhatsApp
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="secao-destaque">
+      <div class="card-principal">
+        <h2>Peças Feitas com Axé</h2>
+        <p>Guias, roupas de santo e paramentas confeccionadas com respeito à tradição.</p>
+
+        <div class="filtros-categoria">
+          <button class="btn-cat ativo" onclick="filtrarCategoria('todos', this)">Todos</button>
+          <button class="btn-cat" onclick="filtrarCategoria('guias', this)">Guias</button>
+          <button class="btn-cat" onclick="filtrarCategoria('braja', this)">Brajá</button>
+          <button class="btn-cat" onclick="filtrarCategoria('chicote', this)">Chicote</button>
+          <button class="btn-cat" onclick="filtrarCategoria('roupas', this)">Roupas</button>
+          <button class="btn-cat" onclick="filtrarCategoria('acessorios', this)">Acessórios</button>
+        </div>
+
+        <div class="filtros-orixa-wrapper">
+          <button class="icon-orixa" onclick="filtrarOrixa('oxum')">
+            <img src="IMG/Braja_Oxum.jpeg" alt="Oxum"><span>Oxum</span>
+          </button>
+          <button class="icon-orixa" onclick="filtrarOrixa('exu')">
+            <img src="IMG/Braja_Exu.jpeg" alt="Exu"><span>Exu</span>
+          </button>
+          <button class="icon-orixa" onclick="filtrarOrixa('ogum')">
+            <img src="IMG/Braja_Ogum.jpeg" alt="Ogum"><span>Ogum</span>
+          </button>
+          <button class="icon-orixa" onclick="filtrarOrixa('yemanja')">
+            <img src="IMG/Braja_Yemanja.jpeg" alt="Yemanjá"><span>Yemanjá</span>
+          </button>
+          <button class="icon-orixa" onclick="filtrarOrixa('xango')">
+            <img src="IMG/Braja_xango.jpeg" alt="Xangô"><span>Xangô</span>
+          </button>
+          <button class="icon-orixa" onclick="filtrarOrixa('oxumare')">
+            <img src="IMG/Guia de Proteção Oxumaré.jpeg" alt="Oxumaré"><span>Oxumaré</span>
+          </button>
+          <button class="icon-orixa" onclick="filtrarOrixa('oxossi')">
+            <img src="IMG/Guia de Proteção Odê.jpeg" alt="Oxossi/Odê"><span>Odê/Oxossi</span>
+          </button>
+          <button class="icon-orixa" onclick="filtrarOrixa('pombagira')">
+            <img src="IMG/Guia de proteção Pomba Gira.jpeg" alt="Pomba Gira"><span>Pomba Gira</span>
+          </button>
+          <button class="icon-orixa" onclick="filtrarOrixa('caboclo')">
+            <img src="IMG/Guia de Proteção de Caboclo.jpeg" alt="Caboclo"><span>Caboclo</span>
+          </button>
+          <button class="icon-orixa" onclick="filtrarOrixa('malandro')">
+            <img src="IMG/Guia de Proteção de Malandro.jpeg" alt="Malandro"><span>Malandro</span>
+          </button>
+          <button class="icon-orixa" onclick="filtrarOrixa('boiadeiro')">
+            <img src="IMG/Guia Cristal Boiadeiro.jpeg" alt="Boiadeiro"><span>Boiadeiro</span>
+          </button>
+          <button class="icon-orixa" onclick="filtrarOrixa('oxala')">
+            <img src="IMG/Braja_Oxala.jpeg" alt="Oxalá"><span>Oxalá</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="carrossel-wrapper" id="meuCarrossel">
+        <a href="#" onclick="zap(event)" class="cta-carrossel">
+          <img src="IMG/whatsapp.jpg" alt="Zap" class="icon-zap-mini">
+          Compre pelo WhatsApp
+        </a>
+
+        <button class="seta-nav seta-anterior" onclick="mudarSlide(-1)">&#10094;</button>
+        <button class="seta-nav seta-proxima" onclick="mudarSlide(1)">&#10095;</button>
+
+        <div id="slides-container"></div>
+        <div class="indicadores-nav" id="dots-container"></div>
+      </div>
+
+    </section>
+
+    <h3 id="tituloProdutos" class="titulo-secao">Nossos Produtos</h3>
+    
+    <div id="gradeProdutos" class="grade-produtos">
+
+      <article class="produto" data-nome="Chicote de Xangô" data-cat="chicote" data-orixa="xango">
+        <img src="IMG/Chicote de Xangô.jpeg" alt="Chicote de Xangô">
+        <div class="produto-info">
+          <h3>Chicote de Xangô</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Chicote de Xangô')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Chicote de Exu" data-cat="chicote" data-orixa="exu">
+        <img src="IMG/Chicote de Exu.jpeg" alt="Chicote de Exu">
+        <div class="produto-info">
+          <h3>Chicote de Exu</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Chicote de Exu')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia de Proteção Yemanjá" data-cat="guias" data-orixa="yemanja">
+        <img src="IMG/Guia de Proteção Yemanjá.jpeg" alt="Guia de Proteção Yemanjá">
+        <div class="produto-info">
+          <h3>Guia de Proteção Yemanjá</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia de Proteção Yemanjá')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia de Proteção Oxumaré" data-cat="guias" data-orixa="oxumare">
+        <img src="IMG/Guia de Proteção Oxumaré.jpeg" alt="Guia de Proteção Oxumaré">
+        <div class="produto-info">
+          <h3>Guia de Proteção Oxumaré</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia de Proteção Oxumaré')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia de Proteção Ogum" data-cat="guias" data-orixa="ogum">
+        <img src="IMG/Guia de Proteção Ogum.jpeg" alt="Guia de Proteção Ogum">
+        <div class="produto-info">
+          <h3>Guia de Proteção Ogum</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia de Proteção Ogum')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Brajá de 03 fios" data-cat="braja" data-orixa="diversos">
+        <img src="IMG/Braja de 03 fios.jpeg" alt="Brajá de 03 fios">
+        <div class="produto-info">
+          <h3>Brajá de 03 fios</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Brajá de 03 fios')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia de Proteção Odê" data-cat="guias" data-orixa="oxossi">
+        <img src="IMG/Guia de Proteção Odê.jpeg" alt="Guia de Proteção Odê">
+        <div class="produto-info">
+          <h3>Guia de Proteção Odê</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia de Proteção Odê')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia de Proteção de Oxossi" data-cat="guias" data-orixa="oxossi">
+        <img src="IMG/Guia de Proteção de Oxossi.jpeg" alt="Guia de Proteção de Oxossi">
+        <div class="produto-info">
+          <h3>Guia de Proteção de Oxossi</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia de Proteção de Oxossi')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia de proteção Pomba Gira" data-cat="guias" data-orixa="pombagira">
+        <img src="IMG/Guia de proteção Pomba Gira.jpeg" alt="Guia de proteção Pomba Gira">
+        <div class="produto-info">
+          <h3>Guia de proteção Pomba Gira</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia de proteção Pomba Gira')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia de proteção Exu" data-cat="guias" data-orixa="exu">
+        <img src="IMG/Guia de proteção Exu.jpeg" alt="Guia de proteção Exu">
+        <div class="produto-info">
+          <h3>Guia de proteção Exu</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia de proteção Exu')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia de Proteção de Oxalá" data-cat="guias" data-orixa="oxala">
+        <img src="IMG/Guia de Proteção de Oxala.jpeg" alt="Guia de Proteção de Oxalá">
+        <div class="produto-info">
+          <h3>Guia de Proteção de Oxalá</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia de Proteção de Oxalá')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia de proteção de Yemanjá" data-cat="guias" data-orixa="yemanja">
+        <img src="IMG/Guia de proteção de Yemanja.jpeg" alt="Guia de proteção de Yemanjá">
+        <div class="produto-info">
+          <h3>Guia de proteção de Yemanjá</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia de proteção de Yemanjá')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia de proteção de Oxum" data-cat="guias" data-orixa="oxum">
+        <img src="IMG/Guia de proteção de Oxum1.jpeg" alt="Guia de proteção de Oxum">
+        <div class="produto-info">
+          <h3>Guia de proteção de Oxum</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia de proteção de Oxum (Mod 2)')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia de Proteção de Malandro" data-cat="guias" data-orixa="malandro">
+        <img src="IMG/Guia de Proteção de Malandro.jpeg" alt="Guia de Proteção de Malandro">
+        <div class="produto-info">
+          <h3>Guia de Proteção de Malandro</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia de Proteção de Malandro')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia de Proteção de Oxum" data-cat="guias" data-orixa="oxum">
+        <img src="IMG/Guia de proteção de Oxum.jpeg" alt="Guia de Proteção de Oxum">
+        <div class="produto-info">
+          <h3>Guia de Proteção de Oxum</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia de Proteção de Oxum')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia de Proteção de Caboclo" data-cat="guias" data-orixa="caboclo">
+        <img src="IMG/Guia de Proteção de caboclo1.jpeg" alt="Guia de Proteção de Caboclo">
+        <div class="produto-info">
+          <h3>Guia de Proteção de Caboclo</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia de Proteção de Caboclo (Mod 2)')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia Cristal Oxum" data-cat="guias" data-orixa="oxum">
+        <img src="IMG/Guia Cristal Oxum.jpeg" alt="Guia Cristal Oxum">
+        <div class="produto-info">
+          <h3>Guia Cristal Oxum</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia Cristal Oxum')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia Cristal Caboclo" data-cat="guias" data-orixa="caboclo">
+        <img src="IMG/Guia Cristal Caboclo.jpeg" alt="Guia Cristal Caboclo">
+        <div class="produto-info">
+          <h3>Guia Cristal Caboclo</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia Cristal Caboclo')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia Cristal Boiadeiro" data-cat="guias" data-orixa="boiadeiro">
+        <img src="IMG/Guia Cristal Boiadeiro.jpeg" alt="Guia Cristal Boiadeiro">
+        <div class="produto-info">
+          <h3>Guia Cristal Boiadeiro</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia Cristal Boiadeiro')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia De Proteção Oxum" data-cat="guias" data-orixa="oxum">
+        <img src="IMG/Guia De Proteção Oxum.jpeg" alt="Guia De Proteção Oxum">
+        <div class="produto-info">
+          <h3>Guia De Proteção Oxum</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia De Proteção Oxum')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Brajá de Oxalá" data-cat="braja" data-orixa="oxala">
+        <img src="IMG/Braja_Oxala.jpeg" alt="Brajá de Oxalá">
+        <div class="produto-info">
+          <h3>Brajá de Oxalá</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Brajá de Oxalá')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia de Proteção Yemanjá" data-cat="guias" data-orixa="yemanja">
+        <img src="IMG/Guia de Proteção Yemanjá.jpeg" alt="Guia de Proteção Yemanjá">
+        <div class="produto-info">
+          <h3>Guia de Proteção Yemanjá</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia de Proteção Yemanjá')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Brajá de Xangô" data-cat="braja" data-orixa="xango">
+        <img src="IMG/Brajá de Xangô.jpeg" alt="Brajá de Xangô">
+        <div class="produto-info">
+          <h3>Brajá de Xangô</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Brajá de Xangô')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Chicote de Ogum" data-cat="chicote" data-orixa="ogum">
+        <img src="IMG/Chicote de Ogum.jpeg" alt="Chicote de Ogum">
+        <div class="produto-info">
+          <h3>Chicote de Ogum</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Chicote de Ogum')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Chicote de Yemanjá" data-cat="chicote" data-orixa="yemanja">
+        <img src="IMG/Chicote de Yemanja.jpeg" alt="Chicote de Yemanjá">
+        <div class="produto-info">
+          <h3>Chicote de Yemanjá</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Chicote de Yemanjá')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia Fio Cristal Exu" data-cat="guias" data-orixa="exu">
+        <img src="IMG/Guia Fio Cristal Exu.jpeg" alt="Guia Fio Cristal Exu">
+        <div class="produto-info">
+          <h3>Guia Fio Cristal Exu</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia Fio Cristal Exu')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia Cristal Exu" data-cat="guias" data-orixa="exu">
+        <img src="IMG/Guia Cristal Exu.jpeg" alt="Guia Cristal Exu">
+        <div class="produto-info">
+          <h3>Guia Cristal Exu</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia Cristal Exu')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Brajá Pomba Gira" data-cat="braja" data-orixa="pombagira">
+        <img src="IMG/Braja_Pomba_Gira.jpeg" alt="Brajá Pomba Gira">
+        <div class="produto-info">
+          <h3>Brajá Pomba Gira</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Brajá Pomba Gira')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia 3 fios Pomba Gira" data-cat="guias" data-orixa="pombagira">
+        <img src="IMG/Guia 3 fios Pomba Gira.jpeg" alt="Guia 3 fios Pomba Gira">
+        <div class="produto-info">
+          <h3>Guia 3 fios Pomba Gira</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia 3 fios Pomba Gira')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Guia de Proteção de Caboclo" data-cat="guias" data-orixa="caboclo">
+        <img src="IMG/Guia de Proteção de Caboclo.jpeg" alt="Guia de Proteção de Caboclo">
+        <div class="produto-info">
+          <h3>Guia de Proteção de Caboclo</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Guia de Proteção de Caboclo')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Roupa Branca" data-cat="roupas" data-orixa="diversos">
+        <img src="IMG/Camisu.jpeg" alt="Roupa Branca">
+        <div class="produto-info">
+          <h3>Roupa Branca</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Roupa Branca')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Brajá Ogum" data-cat="braja" data-orixa="ogum">
+        <img src="IMG/Braja_Ogum.jpeg" alt="Brajá Ogum">
+        <div class="produto-info">
+          <h3>Brajá Ogum</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Brajá Ogum')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Brajá Xangô" data-cat="braja" data-orixa="xango">
+        <img src="IMG/Braja_xango.jpeg" alt="Brajá Xangô"> 
+        <div class="produto-info">
+          <h3>Brajá Xangô</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Brajá Xangô')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="produto" data-nome="Chicote de Nanã" data-cat="chicote" data-orixa="nana">
+        <img src="IMG/Braja_Nana.jpeg" alt="Chicote de Nanã">
+        <div class="produto-info">
+          <h3>Chicote de Nanã</h3>
+          <div class="preco">Sob Consulta</div>
+          <p class="desc">Peça artesanal exclusiva.</p>
+          <a href="#" class="btn-comprar" onclick="zap(event, 'Chicote de Nanã')">Compre pelo WhatsApp</a>
+        </div>
+      </article>
+
+    </div>
+
+    <section class="sobre">
+      <img src="IMG/Tania.jpeg" alt="Tânia">
+      <div>
+        <h3>Sobre a Ekedi Tânia</h3>
+        <p>Tânia é ekedi e artesã há mais de 15 anos. Seu trabalho respeita as tradições do Candomblé e busca unir sofisticação e espiritualidade, transformando fios e contas em elos de conexão sagrada!</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Ateliê Encantos d'Oyá — Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    const NUMERO_ZAP = '5511993872171'; // Telefone atualizado
+
+    function zap(e, produto) {
+      if(e) e.preventDefault();
+      
+      let msg;
+      
+      // Se a função receber um nome de produto (dos botões nos cards)
+      if (produto) {
+        msg = `Olá, gostaria de adquirir a ${produto}`;
+      } else {
+        // Se não receber nada (Header e Carrossel)
+        msg = 'Olá, gostaria de conhecer os produtos.';
+      }
+      
+      const txt = encodeURIComponent(msg);
+      window.open(`https://wa.me/${NUMERO_ZAP}?text=${txt}`, '_blank');
+    }
+
+    // --- LÓGICA DO CARROSSEL ---
+    let indiceAtual = 0;
+    let intervaloCarrossel;
+    let totalSlides = 0;
+    
+    function carregarImagensCarrossel() {
+      // Seleciona todas as imagens dos produtos para criar o slide
+      const produtos = document.querySelectorAll('.produto img');
+      const containerSlides = document.getElementById('slides-container');
+      const containerDots = document.getElementById('dots-container');
+      
+      containerSlides.innerHTML = '';
+      containerDots.innerHTML = '';
+      totalSlides = produtos.length;
+
+      produtos.forEach((img, index) => {
+        // Criação do elemento de imagem (Slide)
+        const novaImg = document.createElement('img');
+        novaImg.src = img.src;
+        novaImg.alt = img.alt;
+        // O primeiro slide recebe a classe 'ativo' para aparecer logo de cara
+        novaImg.className = index === 0 ? 'slide-foto ativo' : 'slide-foto';
+        containerSlides.appendChild(novaImg);
+
+        // Criação do indicador (Bolinha)
+        const dot = document.createElement('div');
+        dot.className = 'dot'; 
+        dot.onclick = () => irParaSlide(index);
+        containerDots.appendChild(dot);
+      });
+      
+      atualizarDots(); // Inicializa os indicadores
+      iniciarCarrossel();
+    }
+
+    function mostrarSlide(n) {
+      const slides = document.querySelectorAll('.slide-foto');
+      
+      // Lógica de loop infinito (volta pro começo ou vai pro final)
+      if (n >= totalSlides) indiceAtual = 0;
+      if (n < 0) indiceAtual = totalSlides - 1;
+
+      slides.forEach(slide => slide.classList.remove('ativo'));
+      slides[indiceAtual].classList.add('ativo');
+
+      atualizarDots();
+    }
+
+    // LÓGICA DAS BOLINHAS "INTELIGENTES" (Mostra apenas 5 por vez)
+    function atualizarDots() {
+      const dots = document.querySelectorAll('.dot');
+      dots.forEach(d => {
+        d.classList.remove('ativo');
+        d.classList.remove('visivel');
+      });
+
+      // Ativa a bolinha atual
+      if(dots[indiceAtual]) dots[indiceAtual].classList.add('ativo');
+
+      // Define quais bolinhas aparecem (Atual, +1, +2, -1, -2)
+      const indicesVisiveis = [
+        (indiceAtual - 2 + totalSlides) % totalSlides,
+        (indiceAtual - 1 + totalSlides) % totalSlides,
+        indiceAtual,
+        (indiceAtual + 1) % totalSlides,
+        (indiceAtual + 2) % totalSlides
+      ];
+
+      indicesVisiveis.forEach(idx => {
+        if(dots[idx]) dots[idx].classList.add('visivel');
+      });
+    }
+
+    function mudarSlide(n) {
+      indiceAtual += n;
+      mostrarSlide(indiceAtual);
+      resetarTimer(); // Reinicia o tempo automático ao clicar manualmente
+    }
+
+    function irParaSlide(n) {
+      indiceAtual = n;
+      mostrarSlide(indiceAtual);
+      resetarTimer();
+    }
+
+    function iniciarCarrossel() {
+      // Muda o slide automaticamente a cada 3.5 segundos
+      intervaloCarrossel = setInterval(() => {
+        indiceAtual++;
+        mostrarSlide(indiceAtual);
+      }, 3500); 
+    }
+
+    function resetarTimer() {
+      clearInterval(intervaloCarrossel);
+      iniciarCarrossel();
+    }
+
+    // --- FILTROS E FUNÇÕES AUXILIARES ---
+
+    function rolar() {
+      const el = document.getElementById('tituloProdutos');
+      if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function filtrarProdutos() {
+      const q = document.getElementById('inputBusca').value.toLowerCase();
+      document.querySelectorAll('.produto').forEach(p => {
+        const nome = p.getAttribute('data-nome').toLowerCase();
+        const cat = p.getAttribute('data-cat').toLowerCase();
+        const orixa = (p.getAttribute('data-orixa')||'').toLowerCase();
+        
+        // Verifica se o termo digitado existe no nome, categoria ou orixá
+        if (nome.includes(q) || cat.includes(q) || orixa.includes(q)) {
+          p.style.display = 'flex';
+        } else {
+          p.style.display = 'none';
+        }
+      });
+      if(q.length > 0) rolar();
+    }
+
+    function filtrarCategoria(c, b) {
+      // Limpa a busca textual ao clicar em categoria
+      document.getElementById('inputBusca').value = '';
+      
+      // Atualiza o estilo do botão ativo
+      document.querySelectorAll('.btn-cat').forEach(btn => btn.classList.remove('ativo'));
+      b.classList.add('ativo');
+      
+      document.querySelectorAll('.produto').forEach(p => {
+        const cat = p.getAttribute('data-cat').toLowerCase();
+        if (c === 'todos' || cat === c) {
+          p.style.display = 'flex';
+        } else {
+          p.style.display = 'none';
+        }
+      });
+      rolar();
+    }
+
+    function filtrarOrixa(o) {
+      document.getElementById('inputBusca').value = '';
+      // Remove destaque dos botões de categoria
+      document.querySelectorAll('.btn-cat').forEach(b => b.classList.remove('ativo'));
+      
+      document.querySelectorAll('.produto').forEach(p => {
+        const op = (p.getAttribute('data-orixa')||'').toLowerCase();
+        if (op.includes(o)) {
+          p.style.display = 'flex';
+        } else {
+          p.style.display = 'none';
+        }
+      });
+      rolar();
+    }
+
+    function limparBusca() {
+      document.getElementById('inputBusca').value = '';
+      filtrarCategoria('todos', document.querySelector('.btn-cat'));
+    }
+
+    // Carrega o slide assim que a página abre
+    window.onload = carregarImagensCarrossel;
+  </script>
+</body>
+</html>
