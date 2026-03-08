@@ -524,14 +524,14 @@
     
     <div id="gradeProdutos" class="grade-produtos animar-grid">
 
-      <article class="produto" data-linha="sagrado" data-nome="Chicote de Xangô" data-cat="chicote" data-orixa="xango" data-preco="1">
+      <article class="produto" data-linha="sagrado" data-nome="Chicote de Xangô" data-cat="chicote" data-orixa="xango" data-preco="270">
         <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
           <img src="IMG/Chicote de Xangô.jpeg" alt="Chicote de Xangô" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
           <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
         </div>
         <div class="produto-info">
           <h3>Chicote de Xangô</h3>
-          <div class="preco">R$ 1,00</div>
+          <div class="preco">R$ 270,00</div>
           <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
         </div>
       </article>
@@ -1424,7 +1424,7 @@
       }
 
       if (cepLimpo.length === 8) {
-        valorFrete = 0.00;
+        valorFrete = 15.00;
         atualizarInterfaceCarrinho();
       } else {
         if(valorFrete !== 0) {
