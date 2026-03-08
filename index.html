@@ -89,7 +89,7 @@
     #btnVoltarTopo:hover { background: var(--cor-dourado); transform: translateY(-5px) scale(1.1); box-shadow: 0 12px 30px rgba(197, 160, 89, 0.5); }
 
     /* =========================================
-       CABEÇALHO E MENU
+       CABEÇALHO
     ========================================= */
     header {
       background: rgba(84, 11, 14, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -312,11 +312,11 @@
         <div class="auth-form">
           <div class="input-group">
             <i class="fa-regular fa-envelope"></i>
-            <input type="email" id="login-email" placeholder="Seu e-mail">
+            <input type="email" id="login-email" placeholder="Seu e-mail" onkeypress="if(event.key === 'Enter') realizarLogin()">
           </div>
           <div class="input-group">
             <i class="fa-solid fa-lock"></i>
-            <input type="password" id="login-senha" placeholder="Sua senha">
+            <input type="password" id="login-senha" placeholder="Sua senha" onkeypress="if(event.key === 'Enter') realizarLogin()">
           </div>
           <div style="text-align: right; margin-top: -5px; margin-bottom: 5px;">
             <span class="link-esqueceu-senha" onclick="trocarAbaAuth('recuperar')">Esqueceu a senha?</span>
@@ -334,15 +334,15 @@
         <div class="auth-form">
           <div class="input-group">
             <i class="fa-regular fa-user"></i>
-            <input type="text" id="reg-nome" placeholder="Nome Completo">
+            <input type="text" id="reg-nome" placeholder="Nome Completo" onkeypress="if(event.key === 'Enter') registrarUsuario()">
           </div>
           <div class="input-group">
             <i class="fa-regular fa-envelope"></i>
-            <input type="email" id="reg-email" placeholder="E-mail">
+            <input type="email" id="reg-email" placeholder="E-mail" onkeypress="if(event.key === 'Enter') registrarUsuario()">
           </div>
           <div class="input-group">
             <i class="fa-solid fa-lock"></i>
-            <input type="password" id="reg-senha" placeholder="Crie uma senha">
+            <input type="password" id="reg-senha" placeholder="Crie uma senha" onkeypress="if(event.key === 'Enter') registrarUsuario()">
           </div>
           <button class="btn-auth-submit" onclick="registrarUsuario()">Cadastrar</button>
         </div>
@@ -357,11 +357,25 @@
         <div class="auth-form">
           <div class="input-group">
             <i class="fa-regular fa-envelope"></i>
-            <input type="email" id="rec-email" placeholder="Seu e-mail cadastrado">
+            <input type="email" id="rec-email" placeholder="Seu e-mail cadastrado" onkeypress="if(event.key === 'Enter') recuperarSenha()">
           </div>
           <button class="btn-auth-submit" onclick="recuperarSenha()">Enviar Link</button>
         </div>
         <p class="auth-toggle"><span onclick="trocarAbaAuth('login')"><i class="fa-solid fa-arrow-left"></i> Voltar para o Login</span></p>
+      </div>
+
+      <div id="form-nova-senha" style="display: none;">
+        <div class="auth-header">
+          <h2>Nova Senha</h2>
+          <p>Digite sua nova senha de acesso.</p>
+        </div>
+        <div class="auth-form">
+          <div class="input-group">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="input-nova-senha" placeholder="Nova senha (mín. 6 letras)" onkeypress="if(event.key === 'Enter') salvarNovaSenha()">
+          </div>
+          <button class="btn-auth-submit" onclick="salvarNovaSenha()">Atualizar Senha</button>
+        </div>
       </div>
 
     </div>
@@ -922,6 +936,9 @@
       document.getElementById('form-login').style.display = aba === 'login' ? 'block' : 'none';
       document.getElementById('form-registro').style.display = aba === 'registro' ? 'block' : 'none';
       document.getElementById('form-recuperar').style.display = aba === 'recuperar' ? 'block' : 'none';
+      
+      const formNova = document.getElementById('form-nova-senha');
+      if (formNova) formNova.style.display = aba === 'nova-senha' ? 'block' : 'none';
     }
 
     function handleUserClick() {
@@ -962,7 +979,6 @@
             let primeiroNome = perfil ? perfil.nome_completo.split(' ')[0] : "Cliente";
             document.getElementById('texto-user').innerText = "Olá, " + primeiroNome;
             
-            // Ativa o link de Admin se for a dona
             if (usuarioAtual.email === EMAIL_DONA) {
               document.getElementById('link-admin').style.display = 'flex';
             }
@@ -993,6 +1009,31 @@
         else { alert("Se o e-mail estiver cadastrado, você receberá um link para criar uma nova senha."); trocarAbaAuth('login'); }
     }
 
+    async function salvarNovaSenha() {
+      const novaSenha = document.getElementById('input-nova-senha').value;
+      if (!novaSenha || novaSenha.length < 6) {
+        alert("A senha deve ter pelo menos 6 caracteres.");
+        return;
+      }
+      
+      const { error } = await clienteSupabase.auth.updateUser({ password: novaSenha });
+      
+      if (error) {
+        alert("Erro ao atualizar a senha: " + error.message);
+      } else {
+        alert("Senha atualizada com sucesso! Você já pode fazer login.");
+        window.location.hash = ''; 
+        window.location.reload(); 
+      }
+    }
+
+    clienteSupabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        document.getElementById('modal-auth').classList.add('ativo');
+        trocarAbaAuth('nova-senha');
+      }
+    });
+
     async function checarSessao() {
         const { data: { session } } = await clienteSupabase.auth.getSession();
         if (session) {
@@ -1001,7 +1042,6 @@
             let primeiroNome = perfil ? perfil.nome_completo.split(' ')[0] : "Cliente";
             document.getElementById('texto-user').innerText = "Olá, " + primeiroNome;
             
-            // Mantém o link ativado se ela já estava logada
             if (usuarioAtual.email === EMAIL_DONA) {
               document.getElementById('link-admin').style.display = 'flex';
             }
@@ -1096,7 +1136,6 @@
       const btn = event.target;
       btn.innerText = '...';
       
-      // Se colocar um código, muda o status para enviado automaticamente. Se tirar, volta pra pago.
       let novoStatus = codigo ? 'enviado' : 'pago'; 
 
       const { error } = await clienteSupabase.from('pedidos').update({ codigo_rastreio: codigo, status: novoStatus }).eq('id', id);
@@ -1110,7 +1149,7 @@
           setTimeout(() => { 
             btn.innerText = 'Salvar'; 
             btn.style.background = 'var(--cor-vermelho-escuro)'; 
-            abrirPainelAdmin(); // Atualiza a tabela para mostrar o status "ENVIADO"
+            abrirPainelAdmin(); 
           }, 1500);
       }
     }
@@ -1226,7 +1265,7 @@
     }
 
     /* ==============================================
-       LÓGICA DO CARRINHO E FRETE
+       LÓGICA DO CARRINHO E FRETE FIXO R$15 MANUAL
     ============================================== */
     let carrinho = [];
     let valorFrete = 0; 
