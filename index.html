@@ -1620,7 +1620,7 @@
       atualizarInterfaceCarrinho();
     }
 
-    function finalizarCompra() {
+async function finalizarCompra() {
         if(carrinho.length === 0) {
             alert("Sua sacola de compras está vazia!");
             return;
@@ -1632,7 +1632,49 @@
             alternarModal('modal-auth');
             return;
         }
-        alert("Enviando dados para o Stripe/Mercado Pago...");
+
+        // 1. Pega os itens do carrinho e adiciona o valor do frete para cobrar tudo junto
+        let itensParaPagar = [...carrinho];
+        if (valorFrete > 0) {
+            itensParaPagar.push({
+                nome: "Frete - Correios",
+                preco: valorFrete,
+                qtd: 1
+            });
+        }
+
+        // 2. Muda visualmente o botão para mostrar que está carregando
+        const btn = document.querySelector('.btn-finalizar');
+        const textoOriginal = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Gerando Pagamento...';
+        btn.disabled = true;
+
+        // 3. Envia os dados para o seu novo motor no Vercel
+        try {
+            const response = await fetch('https://projetotania.vercel.app/api/pagamento', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ carrinho: itensParaPagar })
+            });
+
+            const data = await response.json();
+
+            // 4. Se deu tudo certo, redireciona o cliente para a tela azul/preta do Mercado Pago
+            if (data.url_pagamento) {
+                window.location.href = data.url_pagamento;
+            } else {
+                alert("Erro ao gerar o link. Tente novamente em instantes.");
+                btn.innerHTML = textoOriginal;
+                btn.disabled = false;
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Falha na conexão com o banco. Verifique sua internet.");
+            btn.innerHTML = textoOriginal;
+            btn.disabled = false;
+        }
     }
 
     function iniciarAnimacaoScroll() {
