@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
     /* =========================================
        CONFIGURAÇÕES GERAIS (CSS) - DESIGN MODERNO
@@ -204,7 +206,7 @@
 
     /* =========================================
        ÁREA DE DESTAQUE, TOGGLE E CARROSSEL
-    ========================================= */
+    ======================================== */
     .secao-destaque { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 30px; margin-top: 25px; align-items: stretch; max-height: 520px; }
     .card-principal { background: var(--cor-fundo-card); padding: 35px 30px; border-radius: var(--raio-borda); box-shadow: var(--sombra-suave); display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.03); }
     .card-principal::before { content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%; background: linear-gradient(to bottom, var(--cor-dourado), var(--cor-vermelho-vivo)); }
@@ -374,7 +376,7 @@
           <div style="text-align: right; margin-top: -5px; margin-bottom: 5px;">
             <span class="link-esqueceu-senha" onclick="trocarAbaAuth('recuperar')">Esqueceu a senha?</span>
           </div>
-          <button class="btn-auth-submit" onclick="simularLogin()">Acessar Conta</button>
+          <button class="btn-auth-submit" onclick="realizarLogin()">Acessar Conta</button>
         </div>
         <p class="auth-toggle">Novo por aqui? <span onclick="trocarAbaAuth('registro')">Crie uma conta</span></p>
       </div>
@@ -397,7 +399,7 @@
             <i class="fa-solid fa-lock"></i>
             <input type="password" id="reg-senha" placeholder="Crie uma senha">
           </div>
-          <button class="btn-auth-submit" onclick="alert('Preparo para Supabase: supabase.auth.signUp()')">Cadastrar</button>
+          <button class="btn-auth-submit" onclick="registrarUsuario()">Cadastrar</button>
         </div>
         <p class="auth-toggle">Já tem conta? <span onclick="trocarAbaAuth('login')">Fazer Login</span></p>
       </div>
@@ -412,7 +414,7 @@
             <i class="fa-regular fa-envelope"></i>
             <input type="email" id="rec-email" placeholder="Seu e-mail cadastrado">
           </div>
-          <button class="btn-auth-submit" onclick="alert('Preparo para Supabase: supabase.auth.resetPasswordForEmail()')">Enviar Link</button>
+          <button class="btn-auth-submit" onclick="recuperarSenha()">Enviar Link</button>
         </div>
         <p class="auth-toggle"><span onclick="trocarAbaAuth('login')"><i class="fa-solid fa-arrow-left"></i> Voltar para o Login</span></p>
       </div>
@@ -501,7 +503,7 @@
           <div class="user-dropdown" id="dropdown-user">
             <a href="#"><i class="fa-regular fa-id-badge"></i> Meu Perfil</a>
             <a href="#"><i class="fa-solid fa-box-open"></i> Meus Pedidos</a>
-            <a href="#" onclick="simularLogout(event)" style="color: #d9534f;"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
+            <a href="#" onclick="realizarLogout(event)" style="color: #d9534f;"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
           </div>
         </div>
 
@@ -1087,6 +1089,14 @@
   </footer>
 
   <script>
+    // ==============================================
+    // CONFIGURAÇÃO DO BANCO DE DADOS (SUPABASE)
+    // ==============================================
+    const SUPABASE_URL = 'https://irtdylexllsoazmqhqvc.supabase.co'; // Link da tomada
+    const SUPABASE_ANON_KEY = 'sb_publishable_rXXq6Q2yzl2C20QHTemPvQ_CQlMTioF'; // <--- COLE SUA CHAVE AQUI ANTES DE SALVAR
+
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
     /* ==============================================
        LÓGICA DE COLEÇÕES (TOGGLE GLOBAL) E ROLAGEM
     ============================================== */
@@ -1216,9 +1226,10 @@
     }
 
     /* ==============================================
-       LÓGICA DE LOGIN & RECUPERAÇÃO DE SENHA
+       LÓGICA DE LOGIN & AUTENTICAÇÃO REAL (SUPABASE)
     ============================================== */
     let usuarioLogado = false; 
+    let usuarioAtual = null; // Guarda os dados do cliente logado
 
     function trocarAbaAuth(aba) {
       document.getElementById('form-login').style.display = aba === 'login' ? 'block' : 'none';
@@ -1235,18 +1246,112 @@
       }
     }
 
-    function simularLogin() {
-      usuarioLogado = true;
-      document.getElementById('texto-user').innerText = "Olá, Cliente!";
-      alternarModal('modal-auth');
-      alert("Sucesso! Quando plugar o Supabase, isso redirecionará o usuário.");
+    // 1. Cadastrar Novo Usuário
+    async function registrarUsuario() {
+        const nome = document.getElementById('reg-nome').value;
+        const email = document.getElementById('reg-email').value;
+        const senha = document.getElementById('reg-senha').value;
+
+        if(!nome || !email || !senha) {
+            alert("Por favor, preencha todos os campos.");
+            return;
+        }
+
+        const { data, error } = await supabase.auth.signUp({
+            email: email,
+            password: senha,
+        });
+
+        if (error) {
+            alert("Erro ao cadastrar: " + error.message);
+        } else {
+            // Salva o nome do cliente na tabela 'perfis'
+            if (data.user) {
+                await supabase.from('perfis').insert([
+                    { id: data.user.id, nome_completo: nome }
+                ]);
+            }
+            alert("Cadastro realizado! Verifique seu e-mail para confirmar a conta.");
+            trocarAbaAuth('login');
+        }
     }
 
-    function simularLogout(e) {
-      e.preventDefault();
-      usuarioLogado = false;
-      document.getElementById('texto-user').innerText = "Entrar";
-      document.getElementById('dropdown-user').classList.remove('ativo');
+    // 2. Fazer Login
+    async function realizarLogin() {
+        const email = document.getElementById('login-email').value;
+        const senha = document.getElementById('login-senha').value;
+
+        if(!email || !senha) {
+            alert("Por favor, digite seu e-mail e senha.");
+            return;
+        }
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: senha,
+        });
+
+        if (error) {
+            alert("E-mail ou senha incorretos.");
+        } else {
+            usuarioLogado = true;
+            usuarioAtual = data.user;
+            
+            // Busca o nome do cliente no banco
+            const { data: perfil } = await supabase.from('perfis').select('nome_completo').eq('id', data.user.id).single();
+            let primeiroNome = perfil ? perfil.nome_completo.split(' ')[0] : "Cliente";
+            
+            document.getElementById('texto-user').innerText = "Olá, " + primeiroNome;
+            alternarModal('modal-auth');
+        }
+    }
+
+    // 3. Fazer Logout (Sair da conta)
+    async function realizarLogout(e) {
+        e.preventDefault();
+        const { error } = await supabase.auth.signOut();
+        
+        if(!error) {
+            usuarioLogado = false;
+            usuarioAtual = null;
+            document.getElementById('texto-user').innerText = "Entrar";
+            document.getElementById('dropdown-user').classList.remove('ativo');
+            alert("Você saiu da conta.");
+        }
+    }
+
+    // 4. Recuperar Senha
+    async function recuperarSenha() {
+        const email = document.getElementById('rec-email').value;
+        if(!email) {
+            alert("Por favor, digite seu e-mail.");
+            return;
+        }
+
+        const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+            redirectTo: window.location.origin, // Redireciona de volta pro site
+        });
+
+        if(error) {
+            alert("Erro: " + error.message);
+        } else {
+            alert("Se o e-mail estiver cadastrado, você receberá um link para criar uma nova senha.");
+            trocarAbaAuth('login');
+        }
+    }
+
+    // 5. Checar se o cliente já estava logado ao abrir o site
+    async function checarSessao() {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+            usuarioLogado = true;
+            usuarioAtual = session.user;
+            
+            const { data: perfil } = await supabase.from('perfis').select('nome_completo').eq('id', session.user.id).single();
+            let primeiroNome = perfil ? perfil.nome_completo.split(' ')[0] : "Cliente";
+            
+            document.getElementById('texto-user').innerText = "Olá, " + primeiroNome;
+        }
     }
 
     document.addEventListener('click', function(event) {
@@ -1562,10 +1667,13 @@
       // 2. Força a página a carregar no topo absoluto
       window.scrollTo(0, 0);
 
+      // 3. Checa se o usuário já fez login na última visita
+      checarSessao();
+
       carregarImagensCarrossel();
       iniciarAnimacaoScroll();
       
-      // 3. Inicia na coleção "todas" passando true para NÃO ROLAR a tela para baixo
+      // 4. Inicia na coleção "todas" passando true para NÃO ROLAR a tela para baixo
       mudarLinha('todas', true); 
     };
   </script>
