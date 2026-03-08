@@ -1413,27 +1413,18 @@
       input.value = v;
     }
 
-    // Apenas aplica a máscara e cobra o frete (sem bloquear a digitação)
+
     function mascararCEP(input) {
       let cepLimpo = input.value.replace(/\D/g, '');
-      
       if (cepLimpo.length > 5) {
         input.value = cepLimpo.replace(/^(\d{5})(\d)/, '$1-$2');
       } else {
         input.value = cepLimpo;
       }
-
-      if (cepLimpo.length === 8) {
-        valorFrete = 15.00;
-        atualizarInterfaceCarrinho();
-      } else {
-        if(valorFrete !== 0) {
-            valorFrete = 0;
-            atualizarInterfaceCarrinho();
-        }
-      }
+      atualizarInterfaceCarrinho(); // Chama a inteligência do carrinho
     }
 
+ 
     function atualizarInterfaceCarrinho() {
       const listaHTML = document.getElementById('itens-carrinho');
       const totalHTML = document.getElementById('total-cart');
@@ -1465,14 +1456,19 @@
         `;
       });
 
-      if (valorFrete > 0 && carrinho.length > 0) {
-        txtFreteHTML.innerText = `(+ R$ ${valorFrete.toFixed(2).replace('.',',')} frete)`;
+   
+      const inputCep = document.getElementById('input-cep');
+      const cepDigitado = inputCep ? inputCep.value.replace(/\D/g, '') : '';
+
+      if (cepDigitado.length === 8 && carrinho.length > 0) {
+        valorFrete = 15.00;
+        txtFreteHTML.innerText = `(+ R$ 15,00 frete)`;
       } else {
+        valorFrete = 0;
         txtFreteHTML.innerText = '';
-        valorFrete = 0; 
       }
 
-      let totalFinal = subtotal + (carrinho.length > 0 ? valorFrete : 0);
+      let totalFinal = subtotal + valorFrete;
       
       totalHTML.innerText = `R$ ${totalFinal.toFixed(2).replace('.',',')}`;
       contadorHTML.innerText = totalItens;
