@@ -1478,7 +1478,7 @@
       contadorHTML.innerText = totalItens;
     }
 
-    async function finalizarCompra() {
+async function finalizarCompra() {
         if(carrinho.length === 0) return alert("Sua sacola de compras está vazia.");
 
         if(!usuarioLogado) {
@@ -1523,8 +1523,8 @@
                 });
             }
 
-            // Gravação na tabela 'pedidos' no Supabase
-            const { error: dbError } = await clienteSupabase.from('pedidos').insert([{
+            // Grava no Supabase E RETORNA OS DADOS DA LINHA CRIADA (.select)
+            const { data: pedidoSalvo, error: dbError } = await clienteSupabase.from('pedidos').insert([{
                 usuario_id: usuarioAtual.id,
                 itens: carrinho,
                 valor_total: totalFinal,
@@ -1537,16 +1537,20 @@
                 bairro: f.bairro,
                 cidade: f.cid,
                 estado: f.est
-            }]);
+            }]).select();
 
             if (dbError) throw dbError;
 
-            // Redirecionamento para o Mercado Pago
+            // Pega o ID (número) do pedido que acabou de nascer no banco
+            const idDoPedidoNoBanco = pedidoSalvo[0].id;
+
+            // Envia para o Vercel os itens E O ID DO PEDIDO
             const response = await fetch('https://projetotania.vercel.app/api/pagamento', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
-                    carrinho: itensParaPagar 
+                    carrinho: itensParaPagar,
+                    pedido_id: idDoPedidoNoBanco 
                 })
             });
 
