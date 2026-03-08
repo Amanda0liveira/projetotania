@@ -206,7 +206,7 @@
 
     /* =========================================
        ÁREA DE DESTAQUE, TOGGLE E CARROSSEL
-    ======================================== */
+    ========================================= */
     .secao-destaque { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 30px; margin-top: 25px; align-items: stretch; max-height: 520px; }
     .card-principal { background: var(--cor-fundo-card); padding: 35px 30px; border-radius: var(--raio-borda); box-shadow: var(--sombra-suave); display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.03); }
     .card-principal::before { content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%; background: linear-gradient(to bottom, var(--cor-dourado), var(--cor-vermelho-vivo)); }
@@ -1092,17 +1092,17 @@
     // ==============================================
     // CONFIGURAÇÃO DO BANCO DE DADOS (SUPABASE)
     // ==============================================
-    const SUPABASE_URL = 'https://irtdylexllsoazmqhqvc.supabase.co'; // Link da tomada
-    const SUPABASE_ANON_KEY = 'sb_publishable_rXXq6Q2yzl2C20QHTemPvQ_CQlMTioF'; // <--- COLE SUA CHAVE AQUI ANTES DE SALVAR
+    const SUPABASE_URL = 'https://irtdylexllsoazmqhqvc.supabase.co'; 
+    const SUPABASE_ANON_KEY = 'sb_publishable_rXXq6Q2yzl2C20QHTemPvQ_CQlMTioF'; 
 
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    // Correção do Bug: Usar clienteSupabase para não dar conflito de nomes
+    const clienteSupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     /* ==============================================
        LÓGICA DE COLEÇÕES (TOGGLE GLOBAL) E ROLAGEM
     ============================================== */
     let linhaAtiva = 'todas';
 
-    // FUNÇÃO ATUALIZADA: Mudar a linha, com trava de rolagem para o Onload
     function mudarLinha(novaLinha, pularRolagem = false) {
       linhaAtiva = novaLinha;
       
@@ -1149,7 +1149,6 @@
         }
       });
       
-      // TRAVA DA ROLAGEM: Só desce a tela se NÃO for o carregamento inicial
       if (!pularRolagem) {
         rolar();
       }
@@ -1171,17 +1170,11 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* ==============================================
-       LÓGICA DE RESET DA PÁGINA (LOGO CLICK)
-    ============================================== */
     function resetarSite() {
       window.scrollTo({top: 0, behavior: 'smooth'});
       mudarLinha('todas', true); 
     }
 
-    /* ==============================================
-       LÓGICA DE MODAIS GERAIS
-    ============================================== */
     function alternarModal(id) {
       const modal = document.getElementById(id);
       modal.classList.toggle('ativo');
@@ -1193,9 +1186,6 @@
       }
     }
 
-    /* ==============================================
-       LÓGICA DO MODAL DE PRODUTO (QUICK VIEW)
-    ============================================== */
     function abrirModalProduto(cardElement) {
       const nome = cardElement.getAttribute('data-nome');
       const preco = parseFloat(cardElement.getAttribute('data-preco'));
@@ -1229,7 +1219,7 @@
        LÓGICA DE LOGIN & AUTENTICAÇÃO REAL (SUPABASE)
     ============================================== */
     let usuarioLogado = false; 
-    let usuarioAtual = null; // Guarda os dados do cliente logado
+    let usuarioAtual = null;
 
     function trocarAbaAuth(aba) {
       document.getElementById('form-login').style.display = aba === 'login' ? 'block' : 'none';
@@ -1257,7 +1247,7 @@
             return;
         }
 
-        const { data, error } = await supabase.auth.signUp({
+        const { data, error } = await clienteSupabase.auth.signUp({
             email: email,
             password: senha,
         });
@@ -1265,9 +1255,8 @@
         if (error) {
             alert("Erro ao cadastrar: " + error.message);
         } else {
-            // Salva o nome do cliente na tabela 'perfis'
             if (data.user) {
-                await supabase.from('perfis').insert([
+                await clienteSupabase.from('perfis').insert([
                     { id: data.user.id, nome_completo: nome }
                 ]);
             }
@@ -1286,7 +1275,7 @@
             return;
         }
 
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await clienteSupabase.auth.signInWithPassword({
             email: email,
             password: senha,
         });
@@ -1297,8 +1286,7 @@
             usuarioLogado = true;
             usuarioAtual = data.user;
             
-            // Busca o nome do cliente no banco
-            const { data: perfil } = await supabase.from('perfis').select('nome_completo').eq('id', data.user.id).single();
+            const { data: perfil } = await clienteSupabase.from('perfis').select('nome_completo').eq('id', data.user.id).single();
             let primeiroNome = perfil ? perfil.nome_completo.split(' ')[0] : "Cliente";
             
             document.getElementById('texto-user').innerText = "Olá, " + primeiroNome;
@@ -1306,10 +1294,10 @@
         }
     }
 
-    // 3. Fazer Logout (Sair da conta)
+    // 3. Fazer Logout
     async function realizarLogout(e) {
         e.preventDefault();
-        const { error } = await supabase.auth.signOut();
+        const { error } = await clienteSupabase.auth.signOut();
         
         if(!error) {
             usuarioLogado = false;
@@ -1328,8 +1316,8 @@
             return;
         }
 
-        const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: window.location.origin, // Redireciona de volta pro site
+        const { data, error } = await clienteSupabase.auth.resetPasswordForEmail(email, {
+            redirectTo: window.location.origin,
         });
 
         if(error) {
@@ -1340,14 +1328,14 @@
         }
     }
 
-    // 5. Checar se o cliente já estava logado ao abrir o site
+    // 5. Checar Sessão
     async function checarSessao() {
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session } } = await clienteSupabase.auth.getSession();
         if (session) {
             usuarioLogado = true;
             usuarioAtual = session.user;
             
-            const { data: perfil } = await supabase.from('perfis').select('nome_completo').eq('id', session.user.id).single();
+            const { data: perfil } = await clienteSupabase.from('perfis').select('nome_completo').eq('id', session.user.id).single();
             let primeiroNome = perfil ? perfil.nome_completo.split(' ')[0] : "Cliente";
             
             document.getElementById('texto-user').innerText = "Olá, " + primeiroNome;
@@ -1424,7 +1412,7 @@
     function resetarTimer() { clearInterval(intervaloCarrossel); iniciarCarrossel(); }
 
     /* ==============================================
-       FILTROS E BUSCA (ANIMAÇÃO INTEGRADA)
+       FILTROS E BUSCA
     ============================================== */
     function rolar() {
       const el = document.getElementById('tituloProdutos');
@@ -1659,21 +1647,15 @@
 
     // INICIALIZAÇÃO DA PÁGINA
     window.onload = () => {
-      // 1. Evita que o navegador tente restaurar o scroll de sessões anteriores
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
       }
-      
-      // 2. Força a página a carregar no topo absoluto
       window.scrollTo(0, 0);
 
-      // 3. Checa se o usuário já fez login na última visita
       checarSessao();
-
       carregarImagensCarrossel();
       iniciarAnimacaoScroll();
       
-      // 4. Inicia na coleção "todas" passando true para NÃO ROLAR a tela para baixo
       mudarLinha('todas', true); 
     };
   </script>
