@@ -11,9 +11,9 @@ export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     try {
-      const { carrinho } = req.body;
+      // AGORA RECEBEMOS O CARRINHO E O ID DO PEDIDO QUE O SITE CRIOU
+      const { carrinho, pedido_id } = req.body;
 
-      // Transforma os itens do seu site no formato que o Mercado Pago exige
       const items = carrinho.map(item => ({
         title: item.nome,
         unit_price: Number(item.preco),
@@ -21,7 +21,6 @@ export default async function handler(req, res) {
         currency_id: 'BRL'
       }));
 
-      // Puxa o seu Access Token de forma 100% oculta
       const MP_TOKEN = process.env.MP_ACCESS_TOKEN;
 
       // Cria a cobrança no Mercado Pago
@@ -38,13 +37,14 @@ export default async function handler(req, res) {
             failure: "https://atelieencantosdoya.com.br",
             pending: "https://atelieencantosdoya.com.br"
           },
-          auto_return: "approved"
+          auto_return: "approved",
+          external_reference: String(pedido_id), // ESSA É A MÁGICA 1: Cola o ID do Pedido na cobrança
+          notification_url: "https://projetotania.vercel.app/api/webhook" // ESSA É A MÁGICA 2: Diz onde o MP deve avisar quando for pago
         })
       });
 
       const data = await response.json();
       
-      // Devolve o link da tela de pagamento gerada para o cliente
       return res.status(200).json({ url_pagamento: data.init_point });
       
     } catch (error) {
