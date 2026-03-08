@@ -89,7 +89,7 @@
     #btnVoltarTopo:hover { background: var(--cor-dourado); transform: translateY(-5px) scale(1.1); box-shadow: 0 12px 30px rgba(197, 160, 89, 0.5); }
 
     /* =========================================
-       CABEÇALHO
+       CABEÇALHO E MENU
     ========================================= */
     header {
       background: rgba(84, 11, 14, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -116,15 +116,16 @@
     .btn-header-icon { background: rgba(255,255,255,0.15); color: white; padding: 10px 18px; border-radius: 50px; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.3); transition: var(--transicao-suave); position: relative; }
     .btn-header-icon:hover { background: #fff; color: var(--cor-vermelho-escuro); }
     #contador-cart { position: absolute; top: -5px; right: -5px; background: var(--cor-dourado); color: #fff; font-size: 0.7rem; padding: 3px 6px; border-radius: 50%; font-weight: 800; box-shadow: 0 4px 10px rgba(0,0,0,0.2);}
+    
     .user-dropdown-container { position: relative; }
-    .user-dropdown { position: absolute; top: 50px; right: 0; background: #fff; border-radius: 12px; width: 200px; box-shadow: var(--sombra-hover); display: none; flex-direction: column; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); z-index: 200; }
+    .user-dropdown { position: absolute; top: 50px; right: 0; background: #fff; border-radius: 12px; width: 220px; box-shadow: var(--sombra-hover); display: none; flex-direction: column; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); z-index: 200; }
     .user-dropdown.ativo { display: flex; animation: fadeDown 0.3s ease; }
     .user-dropdown a { padding: 12px 20px; color: var(--cor-texto); font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f0f0f0;}
     .user-dropdown a:hover { background: var(--cor-fundo-site); color: var(--cor-vermelho-vivo); padding-left: 25px; }
     @keyframes fadeDown { from{ opacity:0; transform:translateY(-10px); } to{ opacity:1; transform:translateY(0); } }
 
     /* =========================================
-       MODAIS
+       MODAIS (INCLUINDO AS NOVAS TELAS)
     ========================================= */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
     .modal-overlay.ativo { display: flex; opacity: 1; }
@@ -132,6 +133,7 @@
     .modal-overlay.ativo .modal-box { transform: scale(1); }
     .btn-fechar-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: var(--cor-texto-mutado); cursor: pointer; z-index: 10;}
     .btn-fechar-modal:hover { color: var(--cor-vermelho-vivo); }
+    
     #modal-auth .modal-box { width: 90%; max-width: 400px; }
     .auth-header h2 { font-size: 1.8rem; color: var(--cor-vermelho-escuro); margin-bottom: 5px; text-align: center;}
     .auth-header p { font-size: 0.85rem; color: var(--cor-texto-mutado); text-align: center; margin-bottom: 25px;}
@@ -157,6 +159,17 @@
     .modal-prod-title { font-size: 2.2rem; color: var(--cor-texto); margin-bottom: 15px; line-height: 1.2;}
     .modal-prod-desc { color: var(--cor-texto-mutado); font-size: 0.95rem; line-height: 1.6; margin-bottom: 30px;}
     .modal-prod-price { font-size: 2rem; color: var(--cor-vermelho-vivo); font-weight: 700; margin-bottom: 30px;}
+
+    /* Estilos das Novas Tabelas (Pedidos e Admin) */
+    .tabela-pedidos { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.85rem; }
+    .tabela-pedidos th, .tabela-pedidos td { border: 1px solid #eee; padding: 12px 10px; text-align: left; }
+    .tabela-pedidos th { background: var(--cor-fundo-site); color: var(--cor-vermelho-escuro); font-weight: bold; }
+    .status-pendente { color: #f0ad4e; font-weight: bold; }
+    .status-pago { color: var(--cor-zap); font-weight: bold; }
+    .status-enviado { color: #0275d8; font-weight: bold; }
+    .btn-salvar-rastreio { background: var(--cor-vermelho-escuro); color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; transition: 0.3s; font-weight: bold;}
+    .btn-salvar-rastreio:hover { background: var(--cor-vermelho-vivo); }
+    .input-rastreio { padding: 6px; border: 1px solid #ddd; border-radius: 5px; width: 130px; font-family: inherit;}
     
     @media(max-width: 768px) {
       #btnVoltarTopo { bottom: 20px; right: 20px; width: 45px; height: 45px; font-size: 1rem;}
@@ -231,7 +244,7 @@
     .btn-add-cart:hover { background: var(--cor-vermelho-vivo); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(84, 11, 14, 0.3);}
 
     /* =========================================
-       CARRINHO E ENDEREÇO (DIGITAÇÃO MANUAL LIVRE)
+       CARRINHO E ENDEREÇO
     ========================================= */
     #carrinho-lateral { position: fixed; right: -420px; top: 0; width: 420px; height: 100%; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); z-index: 1001; transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1); padding: 25px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; border-left: 1px solid rgba(0,0,0,0.05); }
     #carrinho-lateral.ativo { right: 0; }
@@ -378,6 +391,30 @@
     </div>
   </div>
 
+  <div id="modal-meus-pedidos" class="modal-overlay" onclick="fecharModal(event, 'modal-meus-pedidos')">
+    <div class="modal-box" style="max-width: 800px; width: 95%;">
+      <span class="btn-fechar-modal" onclick="alternarModal('modal-meus-pedidos')">&times;</span>
+      <div class="auth-header">
+        <h2>Meus Pedidos</h2>
+        <p>Acompanhe o status e o envio das suas peças</p>
+      </div>
+      <div id="lista-meus-pedidos" style="overflow-x: auto; max-height: 400px;">
+        </div>
+    </div>
+  </div>
+
+  <div id="modal-admin" class="modal-overlay" onclick="fecharModal(event, 'modal-admin')">
+    <div class="modal-box" style="max-width: 1000px; width: 95%;">
+      <span class="btn-fechar-modal" onclick="alternarModal('modal-admin')">&times;</span>
+      <div class="auth-header">
+        <h2>Painel de Gestão (Admin)</h2>
+        <p>Controle de vendas, endereços e códigos de rastreio</p>
+      </div>
+      <div id="lista-pedidos-admin" style="overflow-x: auto; max-height: 500px;">
+        </div>
+    </div>
+  </div>
+
   <div id="overlay-carrinho" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; backdrop-filter:blur(3px);" onclick="toggleCarrinho()"></div>
 
   <div id="carrinho-lateral">
@@ -450,8 +487,9 @@
             <i class="fa-regular fa-user"></i> <span class="hide-mobile" id="texto-user">Entrar</span>
           </button>
           <div class="user-dropdown" id="dropdown-user">
-            <a href="#"><i class="fa-regular fa-id-badge"></i> Meu Perfil</a>
-            <a href="#"><i class="fa-solid fa-box-open"></i> Meus Pedidos</a>
+            <a href="#" id="link-admin" style="display: none; color: var(--cor-vermelho-vivo); font-weight: bold;" onclick="abrirPainelAdmin()"><i class="fa-solid fa-crown"></i> Gestão Admin</a>
+            
+            <a href="#" onclick="abrirMeusPedidos()"><i class="fa-solid fa-box-open"></i> Meus Pedidos</a>
             <a href="#" onclick="realizarLogout(event)" style="color: #d9534f;"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
           </div>
         </div>
@@ -464,13 +502,10 @@
   </header>
 
   <main class="container">
-
     <section class="secao-destaque revelar-scroll">
       <div class="card-principal">
-        
         <h2 id="texto-hero-titulo">Artesanato Ancestral</h2>
         <p id="texto-hero-sub">O catálogo completo. Guias, brajás, fios de contas e colares exclusivos, confeccionados à mão.</p>
-
         <div class="toggle-colecoes">
           <button class="btn-toggle ativo" id="btn-linha-todas" onclick="mudarLinha('todas')">Todas as Peças</button>
           <button class="btn-toggle" id="btn-linha-sagrado" onclick="mudarLinha('sagrado')">Peças religiosas</button>
@@ -504,7 +539,6 @@
             </div>
           </div>
         </div>
-
       </div>
 
       <div class="carrossel-wrapper" id="meuCarrossel">
@@ -525,483 +559,203 @@
     <div id="gradeProdutos" class="grade-produtos animar-grid">
 
       <article class="produto" data-linha="sagrado" data-nome="Chicote de Xangô" data-cat="chicote" data-orixa="xango" data-preco="270">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Chicote de Xangô.jpeg" alt="Chicote de Xangô" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Chicote de Xangô</h3>
-          <div class="preco">R$ 270,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Chicote de Xangô.jpeg" alt="Chicote de Xangô" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Chicote de Xangô</h3><div class="preco">R$ 270,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Chicote de Exu" data-cat="chicote" data-orixa="exu" data-preco="270">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Chicote de Exu.jpeg" alt="Chicote de Exu" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Chicote de Exu</h3>
-          <div class="preco">R$ 270,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Chicote de Exu.jpeg" alt="Chicote de Exu" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Chicote de Exu</h3><div class="preco">R$ 270,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Guia de Proteção Yemanjá" data-cat="guias" data-orixa="yemanja" data-preco="35">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia de Proteção Yemanjá.jpeg" alt="Guia de Proteção Yemanjá" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Guia de Proteção Yemanjá</h3>
-          <div class="preco">R$ 35,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia de Proteção Yemanjá.jpeg" alt="Guia de Proteção Yemanjá" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Guia de Proteção Yemanjá</h3><div class="preco">R$ 35,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Guia de Proteção Oxumaré" data-cat="guias" data-orixa="oxumare" data-preco="35">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia de Proteção Oxumaré.jpeg" alt="Guia de Proteção Oxumaré" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Guia de Proteção Oxumaré</h3>
-          <div class="preco">R$ 35,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia de Proteção Oxumaré.jpeg" alt="Guia de Proteção Oxumaré" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Guia de Proteção Oxumaré</h3><div class="preco">R$ 35,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Guia de Proteção Ogum" data-cat="guias" data-orixa="ogum" data-preco="35">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia de Proteção Ogum.jpeg" alt="Guia de Proteção Ogum" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Guia de Proteção Ogum</h3>
-          <div class="preco">R$ 35,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia de Proteção Ogum.jpeg" alt="Guia de Proteção Ogum" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Guia de Proteção Ogum</h3><div class="preco">R$ 35,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Brajá de 03 fios" data-cat="braja" data-orixa="diversos" data-preco="150">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Braja de 03 fios.jpeg" alt="Brajá de 03 fios" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Brajá de 03 fios</h3>
-          <div class="preco">R$ 150,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Braja de 03 fios.jpeg" alt="Brajá de 03 fios" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Brajá de 03 fios</h3><div class="preco">R$ 150,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Guia de Proteção Odê" data-cat="guias" data-orixa="oxossi" data-preco="35">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia de Proteção Odê.jpeg" alt="Guia de Proteção Odê" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Guia de Proteção Odê</h3>
-          <div class="preco">R$ 35,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia de Proteção Odê.jpeg" alt="Guia de Proteção Odê" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Guia de Proteção Odê</h3><div class="preco">R$ 35,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Guia de Proteção de Oxossi" data-cat="guias" data-orixa="oxossi" data-preco="35">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia de Proteção de Oxossi.jpeg" alt="Guia de Proteção de Oxossi" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Guia de Proteção de Oxossi</h3>
-          <div class="preco">R$ 35,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia de Proteção de Oxossi.jpeg" alt="Guia de Proteção de Oxossi" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Guia de Proteção de Oxossi</h3><div class="preco">R$ 35,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Guia de proteção Pomba Gira" data-cat="guias" data-orixa="pombagira" data-preco="35">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia de proteção Pomba Gira.jpeg" alt="Guia de proteção Pomba Gira" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Guia de proteção Pomba Gira</h3>
-          <div class="preco">R$ 35,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia de proteção Pomba Gira.jpeg" alt="Guia de proteção Pomba Gira" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Guia de proteção Pomba Gira</h3><div class="preco">R$ 35,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Guia de proteção Exu" data-cat="guias" data-orixa="exu" data-preco="35">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia de proteção Exu.jpeg" alt="Guia de proteção Exu" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Guia de proteção Exu</h3>
-          <div class="preco">R$ 35,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia de proteção Exu.jpeg" alt="Guia de proteção Exu" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Guia de proteção Exu</h3><div class="preco">R$ 35,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Guia de Proteção de Oxalá" data-cat="guias" data-orixa="oxala" data-preco="35">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia de Proteção de Oxala.jpeg" alt="Guia de Proteção de Oxalá" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Guia de Proteção de Oxalá</h3>
-          <div class="preco">R$ 35,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia de Proteção de Oxala.jpeg" alt="Guia de Proteção de Oxalá" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Guia de Proteção de Oxalá</h3><div class="preco">R$ 35,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Guia de proteção de Yemanjá" data-cat="guias" data-orixa="yemanja" data-preco="35">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia de proteção de Yemanja.jpeg" alt="Guia de proteção de Yemanjá" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Guia de proteção de Yemanjá</h3>
-          <div class="preco">R$ 35,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia de proteção de Yemanja.jpeg" alt="Guia de proteção de Yemanjá" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Guia de proteção de Yemanjá</h3><div class="preco">R$ 35,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Guia de proteção de Oxum" data-cat="guias" data-orixa="oxum" data-preco="35">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia de proteção de Oxum1.jpeg" alt="Guia de proteção de Oxum" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Guia de proteção de Oxum</h3>
-          <div class="preco">R$ 35,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia de proteção de Oxum1.jpeg" alt="Guia de proteção de Oxum" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Guia de proteção de Oxum</h3><div class="preco">R$ 35,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Guia de Proteção de Malandro" data-cat="guias" data-orixa="malandro" data-preco="35">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia de Proteção de Malandro.jpeg" alt="Guia de Proteção de Malandro" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Guia de Proteção de Malandro</h3>
-          <div class="preco">R$ 35,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia de Proteção de Malandro.jpeg" alt="Guia de Proteção de Malandro" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Guia de Proteção de Malandro</h3><div class="preco">R$ 35,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
       
       <article class="produto" data-linha="sagrado" data-nome="Guia de Proteção Oxum" data-cat="guias" data-orixa="oxum" data-preco="50">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia de proteção de Oxum.jpeg" alt="Guia de Proteção Oxum" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Guia de Proteção Oxum</h3>
-          <div class="preco">R$ 50,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia de proteção de Oxum.jpeg" alt="Guia de Proteção Oxum" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Guia de Proteção Oxum</h3><div class="preco">R$ 50,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Guia de Proteção de Caboclo" data-cat="guias" data-orixa="caboclo" data-preco="90">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia de Proteção de caboclo1.jpeg" alt="Guia de Proteção de Caboclo" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Guia de Proteção de Caboclo</h3>
-          <div class="preco">R$ 90,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia de Proteção de caboclo1.jpeg" alt="Guia de Proteção de Caboclo" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Guia de Proteção de Caboclo</h3><div class="preco">R$ 90,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Fio de Conta Cristal Oxum" data-cat="fios" data-orixa="oxum" data-preco="100">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia Cristal Oxum.jpeg" alt="Guia Cristal Oxum" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Fio de Conta Cristal Oxum</h3>
-          <div class="preco">R$ 100,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia Cristal Oxum.jpeg" alt="Guia Cristal Oxum" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Fio de Conta Cristal Oxum</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Fio de Conta Cristal Caboclo" data-cat="fios" data-orixa="caboclo" data-preco="100">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia Cristal Caboclo.jpeg" alt="Guia Cristal Caboclo" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Fio de Conta Cristal Caboclo</h3>
-          <div class="preco">R$ 100,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia Cristal Caboclo.jpeg" alt="Guia Cristal Caboclo" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Fio de Conta Cristal Caboclo</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Fio de Conta Cristal Boiadeiro" data-cat="fios" data-orixa="boiadeiro" data-preco="100">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia Cristal Boiadeiro.jpeg" alt="Guia Cristal Boiadeiro" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Fio de Conta Cristal Boiadeiro</h3>
-          <div class="preco">R$ 100,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia Cristal Boiadeiro.jpeg" alt="Guia Cristal Boiadeiro" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Fio de Conta Cristal Boiadeiro</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Brajá de Oxalá" data-cat="braja" data-orixa="oxala" data-preco="220">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Braja_Oxala.jpeg" alt="Brajá de Oxalá" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Brajá de Oxalá</h3>
-          <div class="preco">R$ 220,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Braja_Oxala.jpeg" alt="Brajá de Oxalá" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Brajá de Oxalá</h3><div class="preco">R$ 220,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Brajá de Xangô" data-cat="braja" data-orixa="xango" data-preco="220">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Brajá de Xangô.jpeg" alt="Brajá de Xangô" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Brajá de Xangô</h3>
-          <div class="preco">R$ 220,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Brajá de Xangô.jpeg" alt="Brajá de Xangô" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Brajá de Xangô</h3><div class="preco">R$ 220,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Chicote de Ogum" data-cat="chicote" data-orixa="ogum" data-preco="270">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Chicote de Ogum.jpeg" alt="Chicote de Ogum" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Chicote de Ogum</h3>
-          <div class="preco">R$ 270,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Chicote de Ogum.jpeg" alt="Chicote de Ogum" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Chicote de Ogum</h3><div class="preco">R$ 270,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Chicote de Yemanjá" data-cat="chicote" data-orixa="yemanja" data-preco="270">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Chicote de Yemanja.jpeg" alt="Chicote de Yemanjá" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Chicote de Yemanjá</h3>
-          <div class="preco">R$ 270,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Chicote de Yemanja.jpeg" alt="Chicote de Yemanjá" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Chicote de Yemanjá</h3><div class="preco">R$ 270,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Fio Cristal Exu" data-cat="fios" data-orixa="exu" data-preco="100">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia Fio Cristal Exu.jpeg" alt="Guia Fio Cristal Exu" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Fio Cristal Exu</h3>
-          <div class="preco">R$ 100,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia Fio Cristal Exu.jpeg" alt="Guia Fio Cristal Exu" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Fio Cristal Exu</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Fio Cristal Exu Duplo" data-cat="fios" data-orixa="exu" data-preco="100">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia Cristal Exu.jpeg" alt="Guia Cristal Exu" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Fio Cristal Exu Duplo</h3>
-          <div class="preco">R$ 100,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia Cristal Exu.jpeg" alt="Guia Cristal Exu" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Fio Cristal Exu Duplo</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Brajá Pomba Gira" data-cat="braja" data-orixa="pombagira" data-preco="150">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Braja_Pomba_Gira.jpeg" alt="Brajá Pomba Gira" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Brajá Pomba Gira</h3>
-          <div class="preco">R$ 150,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Braja_Pomba_Gira.jpeg" alt="Brajá Pomba Gira" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Brajá Pomba Gira</h3><div class="preco">R$ 150,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Guia de Proteção de Caboclo" data-cat="guias" data-orixa="caboclo" data-preco="35">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Guia de Proteção de Caboclo.jpeg" alt="Guia de Proteção de Caboclo" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Guia de Proteção de Caboclo</h3>
-          <div class="preco">R$ 35,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Guia de Proteção de Caboclo.jpeg" alt="Guia de Proteção de Caboclo" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Guia de Proteção de Caboclo</h3><div class="preco">R$ 35,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Brajá Ogum" data-cat="braja" data-orixa="ogum" data-preco="150">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Braja_Ogum.jpeg" alt="Brajá Ogum" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Brajá Ogum</h3>
-          <div class="preco">R$ 150,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Braja_Ogum.jpeg" alt="Brajá Ogum" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Brajá Ogum</h3><div class="preco">R$ 150,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="sagrado" data-nome="Chicote de Nanã" data-cat="chicote" data-orixa="nana" data-preco="270">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Braja_Nana.jpeg" alt="Chicote de Nanã" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Chicote de Nanã</h3>
-          <div class="preco">R$ 270,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Braja_Nana.jpeg" alt="Chicote de Nanã" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Foto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Chicote de Nanã</h3><div class="preco">R$ 270,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
       
       <article class="produto" data-linha="sagrado" data-nome="Fio de Conta Cristal Yemanjá" data-cat="fios" data-orixa="yemanja" data-preco="100">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/Fio de conta cristal Yemanja.jpeg" alt="Fio de Conta Cristal Yemanjá" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Fio+Yemanja'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Fio de Conta Cristal Yemanjá</h3>
-          <div class="preco">R$ 100,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/Fio de conta cristal Yemanja.jpeg" alt="Fio de Conta Cristal Yemanjá" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Fio+Yemanja'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Fio de Conta Cristal Yemanjá</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="casual" data-nome="Colar Artesanal 1" data-cat="colares" data-orixa="casual" data-preco="100" style="display: none;">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/colar artesanal1.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Colar Artesanal</h3>
-          <div class="preco">R$ 100,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/colar artesanal1.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Colar Artesanal</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="casual" data-nome="Colar Artesanal 2" data-cat="colares" data-orixa="casual" data-preco="100" style="display: none;">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/colar artesanal2.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Colar Artesanal</h3>
-          <div class="preco">R$ 100,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/colar artesanal2.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Colar Artesanal</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="casual" data-nome="Colar Artesanal 3" data-cat="colares" data-orixa="casual" data-preco="100" style="display: none;">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/colar artesanal3.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Colar Artesanal</h3>
-          <div class="preco">R$ 100,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/colar artesanal3.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Colar Artesanal</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="casual" data-nome="Colar Artesanal 4" data-cat="colares" data-orixa="casual" data-preco="100" style="display: none;">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/colar artesanal4.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Colar Artesanal</h3>
-          <div class="preco">R$ 100,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/colar artesanal4.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Colar Artesanal</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="casual" data-nome="Colar Artesanal 5" data-cat="colares" data-orixa="casual" data-preco="100" style="display: none;">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/colar artesanal5.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Colar Artesanal</h3>
-          <div class="preco">R$ 100,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/colar artesanal5.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Colar Artesanal</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="casual" data-nome="Colar Artesanal 6" data-cat="colares" data-orixa="casual" data-preco="70" style="display: none;">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/colar artesanal6.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Colar Artesanal</h3>
-          <div class="preco">R$ 70,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/colar artesanal6.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Colar Artesanal</h3><div class="preco">R$ 70,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="casual" data-nome="Colar Artesanal 7" data-cat="colares" data-orixa="casual" data-preco="70" style="display: none;">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/colar artesanal7.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Colar Artesanal</h3>
-          <div class="preco">R$ 70,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/colar artesanal7.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Colar Artesanal</h3><div class="preco">R$ 70,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="casual" data-nome="Colar Artesanal 8" data-cat="colares" data-orixa="casual" data-preco="70" style="display: none;">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/colar artesanal8.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Colar Artesanal</h3>
-          <div class="preco">R$ 70,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/colar artesanal8.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Colar Artesanal</h3><div class="preco">R$ 70,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="casual" data-nome="Colar Artesanal 9" data-cat="colares" data-orixa="casual" data-preco="70" style="display: none;">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/colar artesanal9.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Colar Artesanal</h3>
-          <div class="preco">R$ 70,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/colar artesanal9.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Colar Artesanal</h3><div class="preco">R$ 70,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
       <article class="produto" data-linha="casual" data-nome="Colar Artesanal 10" data-cat="colares" data-orixa="casual" data-preco="100" style="display: none;">
-        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))">
-          <img src="IMG/colar artesanal10.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'">
-          <div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div>
-        </div>
-        <div class="produto-info">
-          <h3>Colar Artesanal</h3>
-          <div class="preco">R$ 100,00</div>
-          <div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div>
-        </div>
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/colar artesanal10.jpeg" alt="Colar Artesanal" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Artesanal'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Colar Artesanal</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
     </div>
@@ -1039,6 +793,11 @@
 
   <script>
     // ==============================================
+    // CHAVE MESTRA 
+    // ==============================================
+    const EMAIL_DONA = "oliveiraamanda525@gmail.com"; 
+
+    // ==============================================
     // CONFIGURAÇÃO DO BANCO DE DADOS (SUPABASE)
     // ==============================================
     const SUPABASE_URL = 'https://irtdylexllsoazmqhqvc.supabase.co'; 
@@ -1047,7 +806,7 @@
     const clienteSupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     /* ==============================================
-       LÓGICA DE COLEÇÕES (TOGGLE GLOBAL) E ROLAGEM
+       LÓGICA DE COLEÇÕES E ROLAGEM
     ============================================== */
     let linhaAtiva = 'todas';
 
@@ -1202,6 +961,12 @@
             const { data: perfil } = await clienteSupabase.from('perfis').select('nome_completo').eq('id', data.user.id).single();
             let primeiroNome = perfil ? perfil.nome_completo.split(' ')[0] : "Cliente";
             document.getElementById('texto-user').innerText = "Olá, " + primeiroNome;
+            
+            // Ativa o link de Admin se for a dona
+            if (usuarioAtual.email === EMAIL_DONA) {
+              document.getElementById('link-admin').style.display = 'flex';
+            }
+            
             alternarModal('modal-auth');
         }
     }
@@ -1213,6 +978,7 @@
             usuarioLogado = false; usuarioAtual = null;
             document.getElementById('texto-user').innerText = "Entrar";
             document.getElementById('dropdown-user').classList.remove('ativo');
+            document.getElementById('link-admin').style.display = 'none';
             alert("Você saiu da conta.");
         }
     }
@@ -1234,6 +1000,11 @@
             const { data: perfil } = await clienteSupabase.from('perfis').select('nome_completo').eq('id', session.user.id).single();
             let primeiroNome = perfil ? perfil.nome_completo.split(' ')[0] : "Cliente";
             document.getElementById('texto-user').innerText = "Olá, " + primeiroNome;
+            
+            // Mantém o link ativado se ela já estava logada
+            if (usuarioAtual.email === EMAIL_DONA) {
+              document.getElementById('link-admin').style.display = 'flex';
+            }
         }
     }
 
@@ -1244,6 +1015,105 @@
         dropdown.classList.remove('ativo');
       }
     });
+
+    /* ==============================================
+       LÓGICA DAS NOVAS TELAS (MEUS PEDIDOS E ADMIN)
+    ============================================== */
+
+    // TELA DO CLIENTE
+    async function abrirMeusPedidos() {
+      if(!usuarioLogado) {
+        alert("Faça login para ver seus pedidos.");
+        trocarAbaAuth('login'); alternarModal('modal-auth'); return;
+      }
+      
+      document.getElementById('dropdown-user').classList.remove('ativo');
+      alternarModal('modal-meus-pedidos');
+      document.getElementById('lista-meus-pedidos').innerHTML = '<p style="text-align:center; padding: 20px;">Buscando seus pedidos...</p>';
+      
+      const { data: meusPedidos, error } = await clienteSupabase.from('pedidos').select('*').eq('usuario_id', usuarioAtual.id).order('created_at', { ascending: false });
+
+      if (error) { document.getElementById('lista-meus-pedidos').innerHTML = '<p style="color:red;">Erro ao carregar pedidos.</p>'; return; }
+      if (meusPedidos.length === 0) { document.getElementById('lista-meus-pedidos').innerHTML = '<p style="text-align:center;">Você ainda não tem pedidos no Ateliê.</p>'; return; }
+
+      let html = '<table class="tabela-pedidos"><tr><th>Data</th><th>Itens</th><th>Total</th><th>Status</th><th>Código de Rastreio</th></tr>';
+      
+      meusPedidos.forEach(p => {
+          const dataFormatada = new Date(p.created_at).toLocaleDateString('pt-BR');
+          const itensFormatados = p.itens.map(i => `${i.qtd}x ${i.nome}`).join('<br>');
+          const rastreio = p.codigo_rastreio ? p.codigo_rastreio : 'Aguardando envio';
+          
+          html += `<tr>
+                      <td>${dataFormatada}</td>
+                      <td>${itensFormatados}</td>
+                      <td>R$ ${p.valor_total.toFixed(2).replace('.', ',')}</td>
+                      <td class="status-${p.status}">${p.status.toUpperCase()}</td>
+                      <td style="font-weight:bold; color:var(--cor-vermelho-escuro);">${rastreio}</td>
+                   </tr>`;
+      });
+      
+      html += '</table>';
+      document.getElementById('lista-meus-pedidos').innerHTML = html;
+    }
+
+    // TELA DA DONA (ADMIN)
+    async function abrirPainelAdmin() {
+      document.getElementById('dropdown-user').classList.remove('ativo');
+      alternarModal('modal-admin');
+      document.getElementById('lista-pedidos-admin').innerHTML = '<p style="text-align:center; padding: 20px;">Carregando todos os pedidos do site...</p>';
+      
+      // Puxa todos os pedidos da loja
+      const { data: todosPedidos, error } = await clienteSupabase.from('pedidos').select('*').order('created_at', { ascending: false });
+
+      if (error) { document.getElementById('lista-pedidos-admin').innerHTML = '<p style="color:red;">Erro ao carregar o painel.</p>'; return; }
+
+      let html = '<table class="tabela-pedidos"><tr><th>Data</th><th>Contato</th><th>Endereço de Envio</th><th>Itens</th><th>Total</th><th>Status</th><th>Inserir Rastreio</th><th>Ação</th></tr>';
+      
+      todosPedidos.forEach(p => {
+          const dataFormatada = new Date(p.created_at).toLocaleDateString('pt-BR');
+          const itensFormatados = p.itens.map(i => `${i.qtd}x ${i.nome}`).join('<br>');
+          const endereco = `${p.rua}, ${p.numero} ${p.complemento||''} <br> ${p.bairro} - ${p.cidade}/${p.estado} <br> <b>CEP: ${p.cep}</b>`;
+          const rastreioAtual = p.codigo_rastreio || '';
+
+          html += `<tr>
+                      <td style="white-space: nowrap;">${dataFormatada}</td>
+                      <td style="white-space: nowrap;">${p.telefone}</td>
+                      <td style="font-size:0.75rem;">${endereco}</td>
+                      <td style="font-size:0.75rem;">${itensFormatados}</td>
+                      <td style="white-space: nowrap;">R$ ${p.valor_total.toFixed(2).replace('.',',')}</td>
+                      <td class="status-${p.status}">${p.status.toUpperCase()}</td>
+                      <td><input type="text" id="rastreio-${p.id}" class="input-rastreio" value="${rastreioAtual}" placeholder="Ex: AB123456789BR"></td>
+                      <td><button class="btn-salvar-rastreio" onclick="salvarRastreio(${p.id}, event)">Salvar</button></td>
+                   </tr>`;
+      });
+      
+      html += '</table>';
+      document.getElementById('lista-pedidos-admin').innerHTML = html;
+    }
+
+    async function salvarRastreio(id, event) {
+      const codigo = document.getElementById(`rastreio-${id}`).value;
+      const btn = event.target;
+      btn.innerText = '...';
+      
+      // Se colocar um código, muda o status para enviado automaticamente. Se tirar, volta pra pago.
+      let novoStatus = codigo ? 'enviado' : 'pago'; 
+
+      const { error } = await clienteSupabase.from('pedidos').update({ codigo_rastreio: codigo, status: novoStatus }).eq('id', id);
+      
+      if (error) {
+          alert('Erro ao salvar o código no banco.');
+          btn.innerText = 'Salvar';
+      } else {
+          btn.innerText = 'Salvo!';
+          btn.style.background = 'var(--cor-zap)';
+          setTimeout(() => { 
+            btn.innerText = 'Salvar'; 
+            btn.style.background = 'var(--cor-vermelho-escuro)'; 
+            abrirPainelAdmin(); // Atualiza a tabela para mostrar o status "ENVIADO"
+          }, 1500);
+      }
+    }
 
     /* ==============================================
        LÓGICA DO CARROSSEL E BUSCA
@@ -1356,7 +1226,7 @@
     }
 
     /* ==============================================
-       LÓGICA DO CARRINHO E FRETE FIXO R$15 MANUAL
+       LÓGICA DO CARRINHO E FRETE
     ============================================== */
     let carrinho = [];
     let valorFrete = 0; 
@@ -1413,7 +1283,6 @@
       input.value = v;
     }
 
-
     function mascararCEP(input) {
       let cepLimpo = input.value.replace(/\D/g, '');
       if (cepLimpo.length > 5) {
@@ -1421,10 +1290,9 @@
       } else {
         input.value = cepLimpo;
       }
-      atualizarInterfaceCarrinho(); // Chama a inteligência do carrinho
+      atualizarInterfaceCarrinho(); 
     }
 
- 
     function atualizarInterfaceCarrinho() {
       const listaHTML = document.getElementById('itens-carrinho');
       const totalHTML = document.getElementById('total-cart');
@@ -1456,7 +1324,6 @@
         `;
       });
 
-   
       const inputCep = document.getElementById('input-cep');
       const cepDigitado = inputCep ? inputCep.value.replace(/\D/g, '') : '';
 
@@ -1474,7 +1341,7 @@
       contadorHTML.innerText = totalItens;
     }
 
-async function finalizarCompra() {
+    async function finalizarCompra() {
         if(carrinho.length === 0) return alert("Sua sacola de compras está vazia.");
 
         if(!usuarioLogado) {
@@ -1519,7 +1386,7 @@ async function finalizarCompra() {
                 });
             }
 
-            // Grava no Supabase E RETORNA OS DADOS DA LINHA CRIADA (.select)
+            // Gravação na tabela 'pedidos' no Supabase
             const { data: pedidoSalvo, error: dbError } = await clienteSupabase.from('pedidos').insert([{
                 usuario_id: usuarioAtual.id,
                 itens: carrinho,
@@ -1590,7 +1457,7 @@ async function finalizarCompra() {
           document.getElementById('total-cart').innerText = 'R$ 0,00';
           document.getElementById('contador-cart').innerText = '0';
           
-          alert("🎉 Pagamento aprovado com sucesso! Muito obrigado pela compra. Você receberá os detalhes no seu e-mail.");
+          alert("🎉 Pagamento aprovado com sucesso! Você pode acompanhar o envio em 'Meus Pedidos'.");
           
           window.history.replaceState({}, document.title, window.location.pathname);
       } else if (statusPagamento === 'rejected' || statusPagamento === 'null') {
