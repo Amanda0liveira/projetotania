@@ -1633,7 +1633,6 @@ async function finalizarCompra() {
             return;
         }
 
-        // 1. Pega os itens do carrinho e adiciona o valor do frete para cobrar tudo junto
         let itensParaPagar = [...carrinho];
         if (valorFrete > 0) {
             itensParaPagar.push({
@@ -1643,13 +1642,11 @@ async function finalizarCompra() {
             });
         }
 
-        // 2. Muda visualmente o botão para mostrar que está carregando
         const btn = document.querySelector('.btn-finalizar');
         const textoOriginal = btn.innerHTML;
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Gerando Pagamento...';
         btn.disabled = true;
 
-        // 3. Envia os dados para o seu novo motor no Vercel
         try {
             const response = await fetch('https://projetotania.vercel.app/api/pagamento', {
                 method: 'POST',
@@ -1661,8 +1658,10 @@ async function finalizarCompra() {
 
             const data = await response.json();
 
-            // 4. Se deu tudo certo, redireciona o cliente para a tela azul/preta do Mercado Pago
             if (data.url_pagamento) {
+                // NOVO: Volta o botão ao normal antes de ir para o Mercado Pago
+                btn.innerHTML = textoOriginal;
+                btn.disabled = false;
                 window.location.href = data.url_pagamento;
             } else {
                 alert("Erro ao gerar o link. Tente novamente em instantes.");
@@ -1693,6 +1692,26 @@ async function finalizarCompra() {
         history.scrollRestoration = 'manual';
       }
       window.scrollTo(0, 0);
+
+      // Verifica se o cliente está voltando do Mercado Pago
+      const parametrosUrl = new URLSearchParams(window.location.search);
+      const statusPagamento = parametrosUrl.get('collection_status');
+
+      if (statusPagamento === 'approved') {
+          // Limpa o carrinho
+          carrinho = [];
+          document.getElementById('itens-carrinho').innerHTML = '';
+          document.getElementById('total-cart').innerText = 'R$ 0,00';
+          document.getElementById('contador-cart').innerText = '0';
+          
+          alert("🎉 Pagamento aprovado com sucesso! Muito obrigado pela compra. Você receberá os detalhes no seu e-mail.");
+          
+          // Limpa o link lá em cima para ficar bonito de novo
+          window.history.replaceState({}, document.title, window.location.pathname);
+      } else if (statusPagamento === 'rejected' || statusPagamento === 'null') {
+          alert("O pagamento não foi concluído. Fique à vontade para tentar novamente quando quiser.");
+          window.history.replaceState({}, document.title, window.location.pathname);
+      }
 
       checarSessao();
       carregarImagensCarrossel();
