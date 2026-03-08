@@ -15,7 +15,7 @@
 
   <style>
     /* =========================================
-       CONFIGURAÇÕES GERAIS (CSS) - DESIGN MODERNO
+       CONFIGURAÇÕES GERAIS (CSS)
     ========================================= */
     :root {
       --cor-vermelho-escuro: #540b0e;
@@ -64,10 +64,8 @@
 
     .container { max-width: var(--largura-maxima); margin: 0 auto; padding: 0 20px; }
     
-    /* Espaçamento extra no topo para o Menu não colar no conteúdo */
     main.container { padding-top: 20px; }
 
-    /* Animações de Scroll e Filtro */
     .revelar-scroll { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); }
     .revelar-scroll.ativo { opacity: 1; transform: translateY(0); }
     
@@ -78,7 +76,7 @@
     .animar-grid { animation: fadeInGrid 0.5s ease forwards; }
 
     /* =========================================
-       BOTÃO VOLTAR AO TOPO (NOVO)
+       BOTÃO VOLTAR AO TOPO
     ========================================= */
     #btnVoltarTopo {
       position: fixed;
@@ -158,7 +156,7 @@
     @keyframes fadeDown { from{ opacity:0; transform:translateY(-10px); } to{ opacity:1; transform:translateY(0); } }
 
     /* =========================================
-       MODAIS (LOGIN & DETALHES DO PRODUTO)
+       MODAIS
     ========================================= */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
     .modal-overlay.ativo { display: flex; opacity: 1; }
@@ -167,7 +165,7 @@
     .btn-fechar-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: var(--cor-texto-mutado); cursor: pointer; z-index: 10;}
     .btn-fechar-modal:hover { color: var(--cor-vermelho-vivo); }
 
-    /* Auth Modal */
+    /* Modal de Autenticação */
     #modal-auth .modal-box { width: 90%; max-width: 400px; }
     .auth-header h2 { font-size: 1.8rem; color: var(--cor-vermelho-escuro); margin-bottom: 5px; text-align: center;}
     .auth-header p { font-size: 0.85rem; color: var(--cor-texto-mutado); text-align: center; margin-bottom: 25px;}
@@ -184,7 +182,7 @@
     .link-esqueceu-senha { font-size: 0.8rem; color: var(--cor-texto-mutado); text-decoration: underline; cursor: pointer; transition: 0.3s; }
     .link-esqueceu-senha:hover { color: var(--cor-vermelho-vivo); }
 
-    /* Product Modal */
+    /* Modal de Produto */
     #modal-produto .modal-box { width: 95%; max-width: 900px; padding: 0; display: flex; overflow: hidden; }
     .modal-prod-img { flex: 1; background: radial-gradient(circle, #fff, #f8f0f0); display: flex; align-items: center; justify-content: center; padding: 40px; min-height: 400px; }
     .modal-prod-img img { max-width: 100%; max-height: 450px; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));}
@@ -261,7 +259,6 @@
     .produto { background: var(--cor-fundo-card); border-radius: var(--raio-borda); overflow: hidden; display: flex; flex-direction: column; transition: var(--transicao-suave); box-shadow: var(--sombra-suave); border: 1px solid rgba(0,0,0,0.03); position: relative; }
     .produto:hover { transform: translateY(-6px); box-shadow: var(--sombra-hover); }
 
-    /* Efeito Quick View na Imagem */
     .img-container { 
       background: radial-gradient(circle, #fff, #f8f0f0); padding: 25px; height: 260px; 
       display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(0,0,0,0.03); 
@@ -299,7 +296,7 @@
     .btn-add-cart:hover { background: var(--cor-vermelho-vivo); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(84, 11, 14, 0.3);}
 
     /* =========================================
-       CARRINHO & CALCULADORA DE FRETE
+       CARRINHO E FRETE
     ========================================= */
     #carrinho-lateral { position: fixed; right: -420px; top: 0; width: 400px; height: 100%; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); z-index: 1001; transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1); padding: 25px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; border-left: 1px solid rgba(0,0,0,0.05); }
     #carrinho-lateral.ativo { right: 0; }
@@ -309,16 +306,19 @@
     .item-cart { display: flex; gap: 12px; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #f0e6e6; align-items: center;}
     .item-cart img { width: 60px; height: 60px; object-fit: contain; background: var(--cor-fundo-site); border-radius: 10px; padding: 5px;}
     
-    .box-frete { background: var(--cor-fundo-site); padding: 15px; border-radius: 10px; margin-bottom: 15px; display: flex; gap: 10px; }
-    .box-frete input { flex-grow: 1; border: 1px solid #ddd; border-radius: 8px; padding: 10px; font-family: inherit; font-size: 0.85rem;}
+    /* Estilos do campo de frete */
+    .box-frete { background: var(--cor-fundo-site); padding: 15px; border-radius: 10px; margin-bottom: 15px; display: flex; gap: 10px; border: 2px solid transparent; transition: 0.3s; }
+    .box-frete:focus-within { border-color: var(--cor-dourado); background: #fff;}
+    .box-frete input { flex-grow: 1; border: 1px solid #ddd; border-radius: 8px; padding: 10px; font-family: inherit; font-size: 0.9rem; font-weight: 600;}
     .box-frete button { background: var(--cor-dourado); color: white; border-radius: 8px; padding: 0 15px; font-weight: bold; transition: 0.3s;}
     .box-frete button:hover { background: #b08d4a; }
 
     .btn-finalizar { background: var(--cor-zap); color: white; width: 100%; padding: 15px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; transition: var(--transicao-suave); display: flex; align-items: center; justify-content: center; gap: 10px;}
     .btn-finalizar:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(32, 176, 104, 0.3); background: #1da851;}
+    .btn-finalizar:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
 
     /* =========================================
-       RODAPÉ PREMIUM (FOOTER)
+       RODAPÉ (FOOTER)
     ========================================= */
     footer { background-color: var(--cor-vermelho-escuro); color: rgba(255,255,255,0.8); margin-top: 80px; padding: 60px 20px 20px 20px; border-top: 5px solid var(--cor-dourado); }
     .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; margin-bottom: 40px;}
@@ -456,8 +456,8 @@
     <div id="itens-carrinho"></div>
     
     <div class="cart-footer">
-      <div class="box-frete">
-        <input type="text" id="input-cep" placeholder="Digite seu CEP" maxlength="9">
+      <div class="box-frete" id="container-cep">
+        <input type="text" id="input-cep" placeholder="CEP (Obrigatório)*" maxlength="9" oninput="mascararCEP(this)">
         <button onclick="calcularFrete()"><i class="fa-solid fa-truck-fast"></i></button>
       </div>
 
@@ -1095,7 +1095,6 @@
     const SUPABASE_URL = 'https://irtdylexllsoazmqhqvc.supabase.co'; 
     const SUPABASE_ANON_KEY = 'sb_publishable_rXXq6Q2yzl2C20QHTemPvQ_CQlMTioF'; 
 
-    // Correção do Bug: Usar clienteSupabase para não dar conflito de nomes
     const clienteSupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     /* ==============================================
@@ -1155,7 +1154,7 @@
     }
 
     /* ==============================================
-       LÓGICA DO BOTÃO VOLTAR AO TOPO (NOVO)
+       LÓGICA DO BOTÃO VOLTAR AO TOPO E MODAIS
     ============================================== */
     window.addEventListener('scroll', () => {
       const btnTopo = document.getElementById('btnVoltarTopo');
@@ -1166,24 +1165,17 @@
       }
     });
 
-    function voltarAoTopo() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    function voltarAoTopo() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
     function resetarSite() {
       window.scrollTo({top: 0, behavior: 'smooth'});
       mudarLinha('todas', true); 
     }
 
-    function alternarModal(id) {
-      const modal = document.getElementById(id);
-      modal.classList.toggle('ativo');
-    }
+    function alternarModal(id) { document.getElementById(id).classList.toggle('ativo'); }
 
     function fecharModal(event, id) {
-      if (event.target.id === id) {
-        document.getElementById(id).classList.remove('ativo');
-      }
+      if (event.target.id === id) { document.getElementById(id).classList.remove('ativo'); }
     }
 
     function abrirModalProduto(cardElement) {
@@ -1200,11 +1192,8 @@
       document.getElementById('modal-produto-tag-cat').innerText = cat === 'colares' ? 'Colar Artesanal' : cat.replace('guias', 'Guia').replace('fios', 'Fio de Conta');
       
       const tagOrixa = document.getElementById('modal-produto-tag-orixa');
-      if(orixa === 'casual') {
-        tagOrixa.innerText = 'Linha Casual';
-      } else {
-        tagOrixa.innerText = orixa.replace('pombagira', 'Pomba Gira');
-      }
+      if(orixa === 'casual') tagOrixa.innerText = 'Linha Casual';
+      else tagOrixa.innerText = orixa.replace('pombagira', 'Pomba Gira');
 
       const btnAddModal = document.getElementById('modal-produto-btn-add');
       btnAddModal.onclick = function() {
@@ -1216,7 +1205,7 @@
     }
 
     /* ==============================================
-       LÓGICA DE LOGIN & AUTENTICAÇÃO REAL (SUPABASE)
+       LÓGICA DE LOGIN & AUTENTICAÇÃO REAL
     ============================================== */
     let usuarioLogado = false; 
     let usuarioAtual = null;
@@ -1228,116 +1217,73 @@
     }
 
     function handleUserClick() {
-      if (usuarioLogado) {
-        document.getElementById('dropdown-user').classList.toggle('ativo');
-      } else {
-        trocarAbaAuth('login');
-        alternarModal('modal-auth');
-      }
+      if (usuarioLogado) document.getElementById('dropdown-user').classList.toggle('ativo');
+      else { trocarAbaAuth('login'); alternarModal('modal-auth'); }
     }
 
-    // 1. Cadastrar Novo Usuário
     async function registrarUsuario() {
         const nome = document.getElementById('reg-nome').value;
         const email = document.getElementById('reg-email').value;
         const senha = document.getElementById('reg-senha').value;
 
-        if(!nome || !email || !senha) {
-            alert("Por favor, preencha todos os campos.");
-            return;
-        }
+        if(!nome || !email || !senha) { alert("Por favor, preencha todos os campos."); return; }
 
-        const { data, error } = await clienteSupabase.auth.signUp({
-            email: email,
-            password: senha,
-        });
+        const { data, error } = await clienteSupabase.auth.signUp({ email: email, password: senha, });
 
-        if (error) {
-            alert("Erro ao cadastrar: " + error.message);
-        } else {
-            if (data.user) {
-                await clienteSupabase.from('perfis').insert([
-                    { id: data.user.id, nome_completo: nome }
-                ]);
-            }
+        if (error) { alert("Erro ao cadastrar: " + error.message); } 
+        else {
+            if (data.user) { await clienteSupabase.from('perfis').insert([{ id: data.user.id, nome_completo: nome }]); }
             alert("Cadastro realizado! Verifique seu e-mail para confirmar a conta.");
             trocarAbaAuth('login');
         }
     }
 
-    // 2. Fazer Login
     async function realizarLogin() {
         const email = document.getElementById('login-email').value;
         const senha = document.getElementById('login-senha').value;
 
-        if(!email || !senha) {
-            alert("Por favor, digite seu e-mail e senha.");
-            return;
-        }
+        if(!email || !senha) { alert("Por favor, digite seu e-mail e senha."); return; }
 
-        const { data, error } = await clienteSupabase.auth.signInWithPassword({
-            email: email,
-            password: senha,
-        });
+        const { data, error } = await clienteSupabase.auth.signInWithPassword({ email: email, password: senha, });
 
-        if (error) {
-            alert("E-mail ou senha incorretos.");
-        } else {
+        if (error) { alert("E-mail ou senha incorretos."); } 
+        else {
             usuarioLogado = true;
             usuarioAtual = data.user;
-            
             const { data: perfil } = await clienteSupabase.from('perfis').select('nome_completo').eq('id', data.user.id).single();
             let primeiroNome = perfil ? perfil.nome_completo.split(' ')[0] : "Cliente";
-            
             document.getElementById('texto-user').innerText = "Olá, " + primeiroNome;
             alternarModal('modal-auth');
         }
     }
 
-    // 3. Fazer Logout
     async function realizarLogout(e) {
         e.preventDefault();
         const { error } = await clienteSupabase.auth.signOut();
-        
         if(!error) {
-            usuarioLogado = false;
-            usuarioAtual = null;
+            usuarioLogado = false; usuarioAtual = null;
             document.getElementById('texto-user').innerText = "Entrar";
             document.getElementById('dropdown-user').classList.remove('ativo');
             alert("Você saiu da conta.");
         }
     }
 
-    // 4. Recuperar Senha
     async function recuperarSenha() {
         const email = document.getElementById('rec-email').value;
-        if(!email) {
-            alert("Por favor, digite seu e-mail.");
-            return;
-        }
+        if(!email) { alert("Por favor, digite seu e-mail."); return; }
 
-        const { data, error } = await clienteSupabase.auth.resetPasswordForEmail(email, {
-            redirectTo: window.location.origin,
-        });
+        const { data, error } = await clienteSupabase.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin, });
 
-        if(error) {
-            alert("Erro: " + error.message);
-        } else {
-            alert("Se o e-mail estiver cadastrado, você receberá um link para criar uma nova senha.");
-            trocarAbaAuth('login');
-        }
+        if(error) alert("Erro: " + error.message);
+        else { alert("Se o e-mail estiver cadastrado, você receberá um link para criar uma nova senha."); trocarAbaAuth('login'); }
     }
 
-    // 5. Checar Sessão
     async function checarSessao() {
         const { data: { session } } = await clienteSupabase.auth.getSession();
         if (session) {
-            usuarioLogado = true;
-            usuarioAtual = session.user;
-            
+            usuarioLogado = true; usuarioAtual = session.user;
             const { data: perfil } = await clienteSupabase.from('perfis').select('nome_completo').eq('id', session.user.id).single();
             let primeiroNome = perfil ? perfil.nome_completo.split(' ')[0] : "Cliente";
-            
             document.getElementById('texto-user').innerText = "Olá, " + primeiroNome;
         }
     }
@@ -1351,35 +1297,29 @@
     });
 
     /* ==============================================
-       LÓGICA DO CARROSSEL
+       LÓGICA DO CARROSSEL E BUSCA
     ============================================== */
-    let indiceAtual = 0;
-    let intervaloCarrossel;
-    let totalSlides = 0;
+    let indiceAtual = 0; let intervaloCarrossel; let totalSlides = 0;
     
     function carregarImagensCarrossel() {
       const produtos = document.querySelectorAll('.produto img');
       const containerSlides = document.getElementById('slides-container');
       const containerDots = document.getElementById('dots-container');
       
-      containerSlides.innerHTML = '';
-      containerDots.innerHTML = '';
+      containerSlides.innerHTML = ''; containerDots.innerHTML = '';
       totalSlides = produtos.length;
 
       produtos.forEach((img, index) => {
         const novaImg = document.createElement('img');
-        novaImg.src = img.src;
-        novaImg.alt = img.alt;
+        novaImg.src = img.src; novaImg.alt = img.alt;
         novaImg.className = index === 0 ? 'slide-foto ativo' : 'slide-foto';
         containerSlides.appendChild(novaImg);
 
         const dot = document.createElement('div');
-        dot.className = 'dot'; 
-        dot.onclick = () => irParaSlide(index);
+        dot.className = 'dot'; dot.onclick = () => irParaSlide(index);
         containerDots.appendChild(dot);
       });
-      atualizarDots();
-      iniciarCarrossel();
+      atualizarDots(); iniciarCarrossel();
     }
 
     function mostrarSlide(n) {
@@ -1397,11 +1337,8 @@
       if(dots[indiceAtual]) dots[indiceAtual].classList.add('ativo');
 
       const indicesVisiveis = [
-        (indiceAtual - 2 + totalSlides) % totalSlides,
-        (indiceAtual - 1 + totalSlides) % totalSlides,
-        indiceAtual,
-        (indiceAtual + 1) % totalSlides,
-        (indiceAtual + 2) % totalSlides
+        (indiceAtual - 2 + totalSlides) % totalSlides, (indiceAtual - 1 + totalSlides) % totalSlides,
+        indiceAtual, (indiceAtual + 1) % totalSlides, (indiceAtual + 2) % totalSlides
       ];
       indicesVisiveis.forEach(idx => { if(dots[idx]) dots[idx].classList.add('visivel'); });
     }
@@ -1411,102 +1348,61 @@
     function iniciarCarrossel() { intervaloCarrossel = setInterval(() => { indiceAtual++; mostrarSlide(indiceAtual); }, 4500); }
     function resetarTimer() { clearInterval(intervaloCarrossel); iniciarCarrossel(); }
 
-    /* ==============================================
-       FILTROS E BUSCA
-    ============================================== */
     function rolar() {
       const el = document.getElementById('tituloProdutos');
-      if(el) {
-        const y = el.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({top: y, behavior: 'smooth'});
-      }
+      if(el) { const y = el.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({top: y, behavior: 'smooth'}); }
     }
 
     function dispararAnimacaoGrade() {
       const grade = document.getElementById('gradeProdutos');
-      grade.classList.remove('animar-grid');
-      void grade.offsetWidth; 
-      grade.classList.add('animar-grid');
+      grade.classList.remove('animar-grid'); void grade.offsetWidth; grade.classList.add('animar-grid');
     }
 
     function filtrarProdutos() {
       const q = document.getElementById('inputBusca').value.toLowerCase();
       const iconeBusca = document.querySelector('#btn-limpar-busca i');
-      
-      if(q.length > 0) {
-          iconeBusca.className = 'fa-solid fa-xmark';
-      } else {
-          iconeBusca.className = 'fa-solid fa-magnifying-glass';
-      }
-
+      if(q.length > 0) iconeBusca.className = 'fa-solid fa-xmark'; else iconeBusca.className = 'fa-solid fa-magnifying-glass';
       dispararAnimacaoGrade();
-
       document.querySelectorAll('.produto').forEach(p => {
         const isLinhaMatch = (linhaAtiva === 'todas') || (p.getAttribute('data-linha') === linhaAtiva);
         const nome = p.getAttribute('data-nome').toLowerCase();
         const cat = p.getAttribute('data-cat').toLowerCase();
         const orixa = (p.getAttribute('data-orixa')||'').toLowerCase();
-        
         const isSearchMatch = nome.includes(q) || cat.includes(q) || orixa.includes(q);
-
-        if (isLinhaMatch && isSearchMatch) p.style.display = 'flex';
-        else p.style.display = 'none';
+        if (isLinhaMatch && isSearchMatch) p.style.display = 'flex'; else p.style.display = 'none';
       });
-      
       if(q.length > 0) rolar();
     }
 
     function filtrarCategoria(c, b) {
-      document.getElementById('inputBusca').value = '';
-      document.querySelector('#btn-limpar-busca i').className = 'fa-solid fa-magnifying-glass';
-      
-      document.querySelectorAll('.btn-cat').forEach(btn => btn.classList.remove('ativo'));
-      b.classList.add('ativo');
-
+      document.getElementById('inputBusca').value = ''; document.querySelector('#btn-limpar-busca i').className = 'fa-solid fa-magnifying-glass';
+      document.querySelectorAll('.btn-cat').forEach(btn => btn.classList.remove('ativo')); b.classList.add('ativo');
       dispararAnimacaoGrade();
-
       document.querySelectorAll('.produto').forEach(p => {
         const isLinhaMatch = (linhaAtiva === 'todas') || (p.getAttribute('data-linha') === linhaAtiva);
         const cat = p.getAttribute('data-cat').toLowerCase();
-        const isCatMatch = (c === 'todos') || (cat === c);
-
-        if (isLinhaMatch && isCatMatch) p.style.display = 'flex';
-        else p.style.display = 'none';
+        if (isLinhaMatch && ((c === 'todos') || (cat === c))) p.style.display = 'flex'; else p.style.display = 'none';
       });
       rolar();
     }
 
     function filtrarOrixa(o) {
-      document.getElementById('inputBusca').value = '';
-      document.querySelector('#btn-limpar-busca i').className = 'fa-solid fa-magnifying-glass';
-      
+      document.getElementById('inputBusca').value = ''; document.querySelector('#btn-limpar-busca i').className = 'fa-solid fa-magnifying-glass';
       document.querySelectorAll('.btn-cat').forEach(b => b.classList.remove('ativo'));
-
       dispararAnimacaoGrade();
-
       document.querySelectorAll('.produto').forEach(p => {
         const isLinhaMatch = (linhaAtiva === 'todas') || (p.getAttribute('data-linha') === linhaAtiva);
         const op = (p.getAttribute('data-orixa')||'').toLowerCase();
-        const isOrixMatch = op.includes(o);
-
-        if (isLinhaMatch && isOrixMatch) p.style.display = 'flex';
-        else p.style.display = 'none';
+        if (isLinhaMatch && op.includes(o)) p.style.display = 'flex'; else p.style.display = 'none';
       });
       rolar();
     }
 
     function limparBusca() {
-      document.getElementById('inputBusca').value = '';
-      document.querySelector('#btn-limpar-busca i').className = 'fa-solid fa-magnifying-glass';
-      
+      document.getElementById('inputBusca').value = ''; document.querySelector('#btn-limpar-busca i').className = 'fa-solid fa-magnifying-glass';
       dispararAnimacaoGrade();
-
       document.querySelectorAll('.produto').forEach(p => {
-        if(linhaAtiva === 'todas' || p.getAttribute('data-linha') === linhaAtiva) {
-          p.style.display = 'flex';
-        } else {
-          p.style.display = 'none';
-        }
+        if(linhaAtiva === 'todas' || p.getAttribute('data-linha') === linhaAtiva) p.style.display = 'flex'; else p.style.display = 'none';
       });
     }
 
@@ -1520,17 +1416,12 @@
       const sidebar = document.getElementById('carrinho-lateral');
       const overlay = document.getElementById('overlay-carrinho');
       sidebar.classList.toggle('ativo');
-      if(sidebar.classList.contains('ativo')) {
-          overlay.style.display = 'block';
-      } else {
-          overlay.style.display = 'none';
-      }
+      if(sidebar.classList.contains('ativo')) overlay.style.display = 'block'; else overlay.style.display = 'none';
     }
 
     function adicionarAoCarrinhoDados(nome, preco, img) {
       const id = nome.replace(/\s/g, ''); 
       const itemExistente = carrinho.find(item => item.id === id);
-
       if (itemExistente) itemExistente.qtd++;
       else carrinho.push({ id: id, nome: nome, preco: preco, img: img, qtd: 1 });
       
@@ -1561,12 +1452,34 @@
       atualizarInterfaceCarrinho();
     }
 
+    function mascararCEP(input) {
+        let cepLimpo = input.value.replace(/\D/g, '');
+        
+        if (cepLimpo.length > 5) {
+            input.value = cepLimpo.replace(/^(\d{5})(\d)/, '$1-$2');
+        } else {
+            input.value = cepLimpo;
+        }
+
+        if (input.value.length === 9) {
+            calcularFrete();
+        } else {
+            if(valorFrete !== 0) {
+                valorFrete = 0;
+                document.getElementById('txt-frete').innerText = '';
+                atualizarInterfaceCarrinho();
+            }
+        }
+    }
+
     function calcularFrete() {
-      const cep = document.getElementById('input-cep').value;
-      if(cep.length < 8) {
-        alert("Por favor, insira um CEP válido.");
+      const cep = document.getElementById('input-cep').value.replace(/\D/g, '');
+      if(cep.length !== 8) {
+        alert("Por favor, insira um CEP válido com 8 dígitos.");
+        document.getElementById('input-cep').focus();
         return;
       }
+      
       if(cep.startsWith('0')) valorFrete = 15.00;
       else valorFrete = 35.00;
 
@@ -1608,6 +1521,7 @@
       
       if(carrinho.length === 0) {
         document.getElementById('txt-frete').innerText = '';
+        document.getElementById('input-cep').value = '';
         valorFrete = 0;
       }
 
@@ -1620,11 +1534,19 @@
       atualizarInterfaceCarrinho();
     }
 
-async function finalizarCompra() {
+    async function finalizarCompra() {
         if(carrinho.length === 0) {
             alert("Sua sacola de compras está vazia!");
             return;
         }
+
+        const cepDigitado = document.getElementById('input-cep').value.replace(/\D/g, '');
+        if (valorFrete === 0 || cepDigitado.length !== 8) {
+            alert("Por favor, preencha o campo de CEP para calcularmos o frete antes de finalizar.");
+            document.getElementById('input-cep').focus();
+            return;
+        }
+
         if(!usuarioLogado) {
             alert("Por favor, faça login ou cadastre-se para finalizar a compra.");
             toggleCarrinho();
@@ -1659,7 +1581,6 @@ async function finalizarCompra() {
             const data = await response.json();
 
             if (data.url_pagamento) {
-                // NOVO: Volta o botão ao normal antes de ir para o Mercado Pago
                 btn.innerHTML = textoOriginal;
                 btn.disabled = false;
                 window.location.href = data.url_pagamento;
@@ -1686,27 +1607,25 @@ async function finalizarCompra() {
       document.querySelectorAll('.revelar-scroll').forEach(el => observer.observe(el));
     }
 
-    // INICIALIZAÇÃO DA PÁGINA
+    // Inicialização da página
     window.onload = () => {
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
       }
       window.scrollTo(0, 0);
 
-      // Verifica se o cliente está voltando do Mercado Pago
       const parametrosUrl = new URLSearchParams(window.location.search);
       const statusPagamento = parametrosUrl.get('collection_status');
 
       if (statusPagamento === 'approved') {
-          // Limpa o carrinho
           carrinho = [];
           document.getElementById('itens-carrinho').innerHTML = '';
           document.getElementById('total-cart').innerText = 'R$ 0,00';
           document.getElementById('contador-cart').innerText = '0';
+          document.getElementById('input-cep').value = '';
           
           alert("🎉 Pagamento aprovado com sucesso! Muito obrigado pela compra. Você receberá os detalhes no seu e-mail.");
           
-          // Limpa o link lá em cima para ficar bonito de novo
           window.history.replaceState({}, document.title, window.location.pathname);
       } else if (statusPagamento === 'rejected' || statusPagamento === 'null') {
           alert("O pagamento não foi concluído. Fique à vontade para tentar novamente quando quiser.");
