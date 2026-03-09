@@ -89,7 +89,7 @@
     #btnVoltarTopo:hover { background: var(--cor-dourado); transform: translateY(-5px) scale(1.1); box-shadow: 0 12px 30px rgba(197, 160, 89, 0.5); }
 
     /* =========================================
-       CABEÇALHO
+       CABEÇALHO E MENU
     ========================================= */
     header {
       background: rgba(84, 11, 14, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -312,11 +312,11 @@
         <div class="auth-form">
           <div class="input-group">
             <i class="fa-regular fa-envelope"></i>
-            <input type="email" id="login-email" placeholder="Seu e-mail" onkeypress="if(event.key === 'Enter') realizarLogin()">
+            <input type="email" id="login-email" placeholder="Seu e-mail" onkeydown="if(event.key === 'Enter') realizarLogin()">
           </div>
           <div class="input-group">
             <i class="fa-solid fa-lock"></i>
-            <input type="password" id="login-senha" placeholder="Sua senha" onkeypress="if(event.key === 'Enter') realizarLogin()">
+            <input type="password" id="login-senha" placeholder="Sua senha" onkeydown="if(event.key === 'Enter') realizarLogin()">
           </div>
           <div style="text-align: right; margin-top: -5px; margin-bottom: 5px;">
             <span class="link-esqueceu-senha" onclick="trocarAbaAuth('recuperar')">Esqueceu a senha?</span>
@@ -334,15 +334,15 @@
         <div class="auth-form">
           <div class="input-group">
             <i class="fa-regular fa-user"></i>
-            <input type="text" id="reg-nome" placeholder="Nome Completo" onkeypress="if(event.key === 'Enter') registrarUsuario()">
+            <input type="text" id="reg-nome" placeholder="Nome Completo" onkeydown="if(event.key === 'Enter') registrarUsuario()">
           </div>
           <div class="input-group">
             <i class="fa-regular fa-envelope"></i>
-            <input type="email" id="reg-email" placeholder="E-mail" onkeypress="if(event.key === 'Enter') registrarUsuario()">
+            <input type="email" id="reg-email" placeholder="E-mail" onkeydown="if(event.key === 'Enter') registrarUsuario()">
           </div>
           <div class="input-group">
             <i class="fa-solid fa-lock"></i>
-            <input type="password" id="reg-senha" placeholder="Crie uma senha" onkeypress="if(event.key === 'Enter') registrarUsuario()">
+            <input type="password" id="reg-senha" placeholder="Crie uma senha" onkeydown="if(event.key === 'Enter') registrarUsuario()">
           </div>
           <button class="btn-auth-submit" onclick="registrarUsuario()">Cadastrar</button>
         </div>
@@ -357,7 +357,7 @@
         <div class="auth-form">
           <div class="input-group">
             <i class="fa-regular fa-envelope"></i>
-            <input type="email" id="rec-email" placeholder="Seu e-mail cadastrado" onkeypress="if(event.key === 'Enter') recuperarSenha()">
+            <input type="email" id="rec-email" placeholder="Seu e-mail cadastrado" onkeydown="if(event.key === 'Enter') recuperarSenha()">
           </div>
           <button class="btn-auth-submit" onclick="recuperarSenha()">Enviar Link</button>
         </div>
@@ -372,7 +372,7 @@
         <div class="auth-form">
           <div class="input-group">
             <i class="fa-solid fa-lock"></i>
-            <input type="password" id="input-nova-senha" placeholder="Nova senha (mín. 6 letras)" onkeypress="if(event.key === 'Enter') salvarNovaSenha()">
+            <input type="password" id="input-nova-senha" placeholder="Nova senha (mín. 6 letras)" onkeydown="if(event.key === 'Enter') salvarNovaSenha()">
           </div>
           <button class="btn-auth-submit" onclick="salvarNovaSenha()">Atualizar Senha</button>
         </div>
