@@ -89,7 +89,7 @@
     #btnVoltarTopo:hover { background: var(--cor-dourado); transform: translateY(-5px) scale(1.1); box-shadow: 0 12px 30px rgba(197, 160, 89, 0.5); }
 
     /* =========================================
-       CABEÇALHO E MENU
+       CABEÇALHO
     ========================================= */
     header {
       background: rgba(84, 11, 14, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -125,7 +125,7 @@
     @keyframes fadeDown { from{ opacity:0; transform:translateY(-10px); } to{ opacity:1; transform:translateY(0); } }
 
     /* =========================================
-       MODAIS (INCLUINDO AS NOVAS TELAS)
+       MODAIS
     ========================================= */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
     .modal-overlay.ativo { display: flex; opacity: 1; }
@@ -142,8 +142,9 @@
     .input-group i { position: absolute; top: 50%; left: 15px; transform: translateY(-50%); color: var(--cor-texto-mutado); font-size: 0.9rem;}
     .auth-form input { width: 100%; padding: 14px 15px 14px 40px; border-radius: 10px; border: 1px solid #ddd; font-family: inherit; font-size: 0.9rem; transition: var(--transicao-suave); }
     .auth-form input:focus { border-color: var(--cor-dourado); outline: none; box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.2); }
-    .btn-auth-submit { background: var(--cor-vermelho-escuro); color: #fff; padding: 15px; border-radius: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: var(--transicao-suave); margin-top: 10px; border: none; cursor: pointer; width: 100%;}
+    .btn-auth-submit { background: var(--cor-vermelho-escuro); color: #fff; padding: 15px; border-radius: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: var(--transicao-suave); margin-top: 10px; border: none; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;}
     .btn-auth-submit:hover { background: var(--cor-vermelho-vivo); box-shadow: 0 5px 15px rgba(84, 11, 14, 0.3); transform: translateY(-2px);}
+    .btn-auth-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
     .auth-toggle { text-align: center; margin-top: 20px; font-size: 0.85rem; color: var(--cor-texto-mutado); }
     .auth-toggle span { color: var(--cor-dourado); font-weight: 700; cursor: pointer; }
     .auth-toggle span:hover { text-decoration: underline; }
@@ -344,7 +345,7 @@
             <i class="fa-solid fa-lock"></i>
             <input type="password" id="reg-senha" placeholder="Crie uma senha" onkeydown="if(event.key === 'Enter') registrarUsuario()">
           </div>
-          <button class="btn-auth-submit" onclick="registrarUsuario()">Cadastrar</button>
+          <button id="btn-registro-submit" class="btn-auth-submit" onclick="registrarUsuario()">Cadastrar</button>
         </div>
         <p class="auth-toggle">Já tem conta? <span onclick="trocarAbaAuth('login')">Fazer Login</span></p>
       </div>
@@ -359,7 +360,7 @@
             <i class="fa-regular fa-envelope"></i>
             <input type="email" id="rec-email" placeholder="Seu e-mail cadastrado" onkeydown="if(event.key === 'Enter') recuperarSenha()">
           </div>
-          <button class="btn-auth-submit" onclick="recuperarSenha()">Enviar Link</button>
+          <button id="btn-recuperar-submit" class="btn-auth-submit" onclick="recuperarSenha()">Enviar Link</button>
         </div>
         <p class="auth-toggle"><span onclick="trocarAbaAuth('login')"><i class="fa-solid fa-arrow-left"></i> Voltar para o Login</span></p>
       </div>
@@ -374,7 +375,7 @@
             <i class="fa-solid fa-lock"></i>
             <input type="password" id="input-nova-senha" placeholder="Nova senha (mín. 6 letras)" onkeydown="if(event.key === 'Enter') salvarNovaSenha()">
           </div>
-          <button class="btn-auth-submit" onclick="salvarNovaSenha()">Atualizar Senha</button>
+          <button id="btn-nova-senha-submit" class="btn-auth-submit" onclick="salvarNovaSenha()">Atualizar Senha</button>
         </div>
       </div>
 
@@ -502,7 +503,6 @@
           </button>
           <div class="user-dropdown" id="dropdown-user">
             <a href="#" id="link-admin" style="display: none; color: var(--cor-vermelho-vivo); font-weight: bold;" onclick="abrirPainelAdmin()"><i class="fa-solid fa-crown"></i> Gestão Admin</a>
-            
             <a href="#" onclick="abrirMeusPedidos()"><i class="fa-solid fa-box-open"></i> Meus Pedidos</a>
             <a href="#" onclick="realizarLogout(event)" style="color: #d9534f;"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
           </div>
@@ -790,7 +790,7 @@
         </div>
         <div class="contato-item">
           <i class="fa-regular fa-envelope"></i>
-          <span>atelieencantosdoya.com.br</span>
+          <span>contato@encantosdoya.com.br</span>
         </div>
         
         <div class="redes-sociais">
@@ -952,12 +952,22 @@
 
         if(!nome || !email || !senha) { alert("Por favor, preencha todos os campos."); return; }
 
+        const btnRegistro = document.getElementById('btn-registro-submit');
+        const textoOriginal = btnRegistro.innerHTML;
+        btnRegistro.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Cadastrando...';
+        btnRegistro.disabled = true;
+
         const { data, error } = await clienteSupabase.auth.signUp({ email: email, password: senha, });
 
-        if (error) { alert("Erro ao cadastrar: " + error.message); } 
-        else {
+        if (error) { 
+            alert("Erro ao cadastrar: " + error.message); 
+            btnRegistro.innerHTML = textoOriginal;
+            btnRegistro.disabled = false;
+        } else {
             if (data.user) { await clienteSupabase.from('perfis').insert([{ id: data.user.id, nome_completo: nome }]); }
             alert("Cadastro realizado! Verifique seu e-mail para confirmar a conta.");
+            btnRegistro.innerHTML = textoOriginal;
+            btnRegistro.disabled = false;
             trocarAbaAuth('login');
         }
     }
@@ -968,18 +978,15 @@
 
         if(!email || !senha) { alert("Por favor, digite seu e-mail e senha."); return; }
 
-        // --- INÍCIO DO EFEITO CARREGANDO ---
         const btnLogin = document.getElementById('btn-login-submit');
-        const textoOriginal = btnLogin.innerHTML; // Salva o texto "Acessar Conta"
+        const textoOriginal = btnLogin.innerHTML;
         btnLogin.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Entrando...';
-        btnLogin.disabled = true; // Trava o botão para não clicarem duas vezes
-        // --- FIM DO EFEITO CARREGANDO ---
+        btnLogin.disabled = true;
 
         const { data, error } = await clienteSupabase.auth.signInWithPassword({ email: email, password: senha, });
 
         if (error) { 
             alert("E-mail ou senha incorretos."); 
-            // Se der erro, destrava o botão e volta ao normal
             btnLogin.innerHTML = textoOriginal;
             btnLogin.disabled = false;
         } 
@@ -996,7 +1003,6 @@
             
             alternarModal('modal-auth');
             
-            // Retorna o botão ao normal silenciosamente (caso a pessoa deslogue e logue depois)
             btnLogin.innerHTML = textoOriginal;
             btnLogin.disabled = false;
         }
@@ -1018,10 +1024,21 @@
         const email = document.getElementById('rec-email').value;
         if(!email) { alert("Por favor, digite seu e-mail."); return; }
 
+        const btnRecuperar = document.getElementById('btn-recuperar-submit');
+        const textoOriginal = btnRecuperar.innerHTML;
+        btnRecuperar.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+        btnRecuperar.disabled = true;
+
         const { data, error } = await clienteSupabase.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin, });
 
+        btnRecuperar.innerHTML = textoOriginal;
+        btnRecuperar.disabled = false;
+
         if(error) alert("Erro: " + error.message);
-        else { alert("Se o e-mail estiver cadastrado, você receberá um link para criar uma nova senha."); trocarAbaAuth('login'); }
+        else { 
+            alert("Se o e-mail estiver cadastrado, você receberá um link para criar uma nova senha."); 
+            trocarAbaAuth('login'); 
+        }
     }
 
     async function salvarNovaSenha() {
@@ -1031,14 +1048,33 @@
         return;
       }
       
+      const btnNovaSenha = document.getElementById('btn-nova-senha-submit');
+      const textoOriginal = btnNovaSenha.innerHTML;
+      btnNovaSenha.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Atualizando...';
+      btnNovaSenha.disabled = true;
+
       const { error } = await clienteSupabase.auth.updateUser({ password: novaSenha });
       
+      btnNovaSenha.innerHTML = textoOriginal;
+      btnNovaSenha.disabled = false;
+
       if (error) {
         alert("Erro ao atualizar a senha: " + error.message);
       } else {
-        alert("Senha atualizada com sucesso! Você já pode fazer login.");
-        window.location.hash = ''; 
-        window.location.reload(); 
+        alert("Senha atualizada com sucesso! Por favor, faça seu login com a nova senha.");
+        
+        // Encerra a sessão temporária criada pelo link de recuperação
+        await clienteSupabase.auth.signOut(); 
+        
+        // Limpa o link com o token de segurança da barra do navegador
+        window.history.replaceState(null, null, window.location.pathname);
+        
+        // Limpa os campos de senha
+        document.getElementById('input-nova-senha').value = '';
+        document.getElementById('login-senha').value = '';
+        
+        // Redireciona diretamente para a tela de login
+        trocarAbaAuth('login'); 
       }
     }
 
@@ -1084,7 +1120,7 @@
       
       document.getElementById('dropdown-user').classList.remove('ativo');
       alternarModal('modal-meus-pedidos');
-      document.getElementById('lista-meus-pedidos').innerHTML = '<p style="text-align:center; padding: 20px;">Buscando seus pedidos...</p>';
+      document.getElementById('lista-meus-pedidos').innerHTML = '<p style="text-align:center; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> Buscando seus pedidos...</p>';
       
       const { data: meusPedidos, error } = await clienteSupabase.from('pedidos').select('*').eq('usuario_id', usuarioAtual.id).order('created_at', { ascending: false });
 
@@ -1115,7 +1151,7 @@
     async function abrirPainelAdmin() {
       document.getElementById('dropdown-user').classList.remove('ativo');
       alternarModal('modal-admin');
-      document.getElementById('lista-pedidos-admin').innerHTML = '<p style="text-align:center; padding: 20px;">Carregando todos os pedidos do site...</p>';
+      document.getElementById('lista-pedidos-admin').innerHTML = '<p style="text-align:center; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> Carregando todos os pedidos do site...</p>';
       
       // Puxa todos os pedidos da loja
       const { data: todosPedidos, error } = await clienteSupabase.from('pedidos').select('*').order('created_at', { ascending: false });
@@ -1149,7 +1185,8 @@
     async function salvarRastreio(id, event) {
       const codigo = document.getElementById(`rastreio-${id}`).value;
       const btn = event.target;
-      btn.innerText = '...';
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+      btn.disabled = true;
       
       let novoStatus = codigo ? 'enviado' : 'pago'; 
 
@@ -1158,12 +1195,14 @@
       if (error) {
           alert('Erro ao salvar o código no banco.');
           btn.innerText = 'Salvar';
+          btn.disabled = false;
       } else {
           btn.innerText = 'Salvo!';
           btn.style.background = 'var(--cor-zap)';
           setTimeout(() => { 
             btn.innerText = 'Salvar'; 
             btn.style.background = 'var(--cor-vermelho-escuro)'; 
+            btn.disabled = false;
             abrirPainelAdmin(); 
           }, 1500);
       }
