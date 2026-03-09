@@ -321,7 +321,7 @@
           <div style="text-align: right; margin-top: -5px; margin-bottom: 5px;">
             <span class="link-esqueceu-senha" onclick="trocarAbaAuth('recuperar')">Esqueceu a senha?</span>
           </div>
-          <button class="btn-auth-submit" onclick="realizarLogin()">Acessar Conta</button>
+          <button id="btn-login-submit" class="btn-auth-submit" onclick="realizarLogin()">Acessar Conta</button>
         </div>
         <p class="auth-toggle">Novo por aqui? <span onclick="trocarAbaAuth('registro')">Crie uma conta</span></p>
       </div>
@@ -969,9 +969,21 @@
 
         if(!email || !senha) { alert("Por favor, digite seu e-mail e senha."); return; }
 
+        // --- INÍCIO DO EFEITO CARREGANDO ---
+        const btnLogin = document.getElementById('btn-login-submit');
+        const textoOriginal = btnLogin.innerHTML; // Salva o texto "Acessar Conta"
+        btnLogin.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Entrando...';
+        btnLogin.disabled = true; // Trava o botão para não clicarem duas vezes
+        // --- FIM DO EFEITO CARREGANDO ---
+
         const { data, error } = await clienteSupabase.auth.signInWithPassword({ email: email, password: senha, });
 
-        if (error) { alert("E-mail ou senha incorretos."); } 
+        if (error) { 
+            alert("E-mail ou senha incorretos."); 
+            // Se der erro, destrava o botão e volta ao normal
+            btnLogin.innerHTML = textoOriginal;
+            btnLogin.disabled = false;
+        } 
         else {
             usuarioLogado = true;
             usuarioAtual = data.user;
@@ -984,6 +996,10 @@
             }
             
             alternarModal('modal-auth');
+            
+            // Retorna o botão ao normal silenciosamente (caso a pessoa deslogue e logue depois)
+            btnLogin.innerHTML = textoOriginal;
+            btnLogin.disabled = false;
         }
     }
 
