@@ -772,6 +772,21 @@
         <div class="produto-info"><h3>Colar Artesanal</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
       </article>
 
+      <article class="produto" data-linha="casual" data-nome="Colar Preto" data-cat="colares" data-orixa="casual" data-preco="100" style="display: none;">
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/colarpreto.jpeg" alt="Colar Preto" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Preto'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Colar Preto</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
+      </article>
+
+      <article class="produto" data-linha="casual" data-nome="Colar Branco" data-cat="colares" data-orixa="casual" data-preco="100" style="display: none;">
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/colarbranco.jpeg" alt="Colar Branco" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Branco'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Colar Branco</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
+      </article>
+
+      <article class="produto" data-linha="casual" data-nome="Colar Bege" data-cat="colares" data-orixa="casual" data-preco="100" style="display: none;">
+        <div class="img-container" onclick="abrirModalProduto(this.closest('.produto'))"><img src="IMG/colarbeje.jpeg" alt="Colar Bege" onerror="this.src='https://placehold.co/300x300/fcf9f9/c5a059?text=Colar+Bege'"><div class="quick-view-overlay"><span class="quick-view-btn"><i class="fa-regular fa-eye"></i> Ver Detalhes</span></div></div>
+        <div class="produto-info"><h3>Colar Bege</h3><div class="preco">R$ 100,00</div><div class="botoes-acao"><button class="btn-add-cart" onclick="adicionarAoCarrinho(this)"><i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola</button></div></div>
+      </article>
+
     </div>
   </main>
 
@@ -869,6 +884,8 @@
         }
       });
       
+      carregarImagensCarrossel(); // Recarrega o carrossel usando a nova linha ativa
+
       if (!pularRolagem) {
         rolar();
       }
@@ -1214,24 +1231,41 @@
     let indiceAtual = 0; let intervaloCarrossel; let totalSlides = 0;
     
     function carregarImagensCarrossel() {
-      const produtos = document.querySelectorAll('.produto img');
+      clearInterval(intervaloCarrossel); // Limpa o intervalo antigo para não sobrepor
+      
       const containerSlides = document.getElementById('slides-container');
       const containerDots = document.getElementById('dots-container');
       
-      containerSlides.innerHTML = ''; containerDots.innerHTML = '';
-      totalSlides = produtos.length;
+      containerSlides.innerHTML = ''; 
+      containerDots.innerHTML = '';
+      
+      // Filtra os produtos para o carrossel baseando-se apenas na linha ativa
+      let produtosFiltrados = [];
+      document.querySelectorAll('.produto').forEach(p => {
+        if (linhaAtiva === 'todas' || p.getAttribute('data-linha') === linhaAtiva) {
+          produtosFiltrados.push(p.querySelector('img'));
+        }
+      });
+      
+      totalSlides = produtosFiltrados.length;
+      indiceAtual = 0;
 
-      produtos.forEach((img, index) => {
+      if (totalSlides === 0) return;
+
+      produtosFiltrados.forEach((img, index) => {
         const novaImg = document.createElement('img');
-        novaImg.src = img.src; novaImg.alt = img.alt;
+        novaImg.src = img.src; 
+        novaImg.alt = img.alt;
         novaImg.className = index === 0 ? 'slide-foto ativo' : 'slide-foto';
         containerSlides.appendChild(novaImg);
 
         const dot = document.createElement('div');
-        dot.className = 'dot'; dot.onclick = () => irParaSlide(index);
+        dot.className = 'dot'; 
+        dot.onclick = () => irParaSlide(index);
         containerDots.appendChild(dot);
       });
-      atualizarDots(); iniciarCarrossel();
+      atualizarDots(); 
+      iniciarCarrossel();
     }
 
     function mostrarSlide(n) {
@@ -1239,7 +1273,7 @@
       if (n >= totalSlides) indiceAtual = 0;
       if (n < 0) indiceAtual = totalSlides - 1;
       slides.forEach(slide => slide.classList.remove('ativo'));
-      slides[indiceAtual].classList.add('ativo');
+      if(slides[indiceAtual]) slides[indiceAtual].classList.add('ativo');
       atualizarDots();
     }
 
@@ -1350,8 +1384,15 @@
     }
 
     function adicionarDoCarrossel() {
-       const botoesAdicionar = document.querySelectorAll('.produto .btn-add-cart');
-       if(botoesAdicionar[indiceAtual]) botoesAdicionar[indiceAtual].click(); 
+       // Pega apenas os botões dos produtos que estão na mesma linha do carrossel atual
+       let botoesFiltrados = [];
+       document.querySelectorAll('.produto').forEach(p => {
+         if (linhaAtiva === 'todas' || p.getAttribute('data-linha') === linhaAtiva) {
+           botoesFiltrados.push(p.querySelector('.btn-add-cart'));
+         }
+       });
+
+       if(botoesFiltrados[indiceAtual]) botoesFiltrados[indiceAtual].click(); 
        else alert('Por favor, adicione este produto através da lista abaixo.');
     }
 
@@ -1559,7 +1600,6 @@
       }
 
       checarSessao();
-      carregarImagensCarrossel();
       iniciarAnimacaoScroll();
       
       mudarLinha('todas', true); 
